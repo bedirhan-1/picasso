@@ -1,5 +1,5 @@
 # Database Connection
-# -------------------
+
 # Set the database connection string to connect to your database server. You can use environment variables here as well.
 
 My database connection string is:
