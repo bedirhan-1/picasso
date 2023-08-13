@@ -1,29 +1,31 @@
 // Araç Sigortası
 export const VehicleInsurance = {
   title: "Araç Sigortası",
-  options: [
-    "Kasko",
-    "Trafik Sigortası",
-    "Yangın Sigortası",
-    "Hırsızlık Sigortası",
-    "Kasko+Trafik Sigortası",
+  options: ["Kasko", "Trafik Sigortası", "İhtiyari mali mesuliyet sigortası"],
+  requirements: [
+    "TC",
+    "Doğum Tarihi",
+    "Telefon Numarası",
+    "Araç Yeni tescil mi",
+    "Araç Plakası",
+    "Tescil Belge Seri No",
   ],
 };
 
 // Sağlık Sigortası
 export const HealthInsurance = {
   title: "Sağlık Sigortası",
-  options: [
-    "Genel Sağlık Sigortası",
-    "Tamamlayıcı Sağlık Sigortası",
-    "Diş Sağlık Sigortası",
-    "Göz Sağlığı Sigortası",
-    "Kritik Hastalık Sigortası",
-    "Hasta Nakil Sigortası",
-    "Gebelik ve Doğum Sigortası",
-    "Engelli Sağlık Sigortası",
-    "Yurtdışı Seyahat Sağlık Sigortası",
-    "Yurtiçi Seyahat Sağlık Sigortası",
+  options: ["Genel Sağlık Sigortası", "Tamamlayıcı Sağlık Sigortası"],
+  requirements: [
+    "Sigortalı Sayısı",
+    "TC",
+    "Boy",
+    "Kilo",
+    "Telefon Numarası",
+    "Sigortalı Sayısı",
+    "Sigortalıların Doğum Tarihi",
+    "Sigortalıların Cinsiyeti",
+    "Sigortalıların Yakınlık Derecesi (Eş / Çocuk / Anne / Baba / Kardeş)",
   ],
 };
 
@@ -33,8 +35,25 @@ export const HomeInsurance = {
   options: [
     "DASK (Doğal Afet Sigortası)",
     "Konut Yangın Sigortası",
-    "Konut İçerik Sigortası",
     "Deprem Sigortası",
+  ],
+  requirements: [
+    "TC",
+    "Doğum Tarihi",
+    "Telefon Numarası",
+    "Konutun Açık Adres Bilgisi",
+    "Konutun Yapım Yılı",
+    "Konutun Bulunduğu Kat",
+    "Konutun Bulunduğu Kat Sayısı",
+    "Kiracı mısınız, mülk sahibi misiniz?",
+    "DASK Sigortası Yaptırılmış mı?",
+    "Konut Türü (Apartman / Müstakil Ev / Villa / Dubleks / Tripleks)",
+    "Konutun Brüt Metrekare Bilgisi",
+    "Binanın Yapı Tipi (Betonarme / Ahşap / Çelik)",
+    "Konutun Boş Kalma Süresi",
+    "Konutun Kullanım Amacı (Mesken / İşyeri / İkametgah / Depo)",
+    "Konutun Sigorta Bedeli",
+    "Konutun İçindeki Eşyaların Sigorta Bedeli",
   ],
 };
 
@@ -42,62 +61,66 @@ export const HomeInsurance = {
 export const TravelInsurance = {
   title: "Seyahat Sigortası",
   options: ["Yurtiçi Seyahat Sigortası", "Yurtdışı Seyahat Sigortası"],
+  requirements: [
+    "TC",
+    "Doğum Tarihi",
+    "Telefon Numarası",
+    "Seyahat Başlangıç Tarihi",
+    "Seyahat Bitiş Tarihi",
+    "Seyahat Edilecek Ülke",
+    "Pasaport Numarası",
+    "Seyahat Amacı (Tatil / İş / Tedavi / Eğitim)",
+  ],
 };
 
 // İşyeri Sigortası
 export const BusinessInsurance = {
   title: "İşyeri Sigortası",
-  options: [
-    "İşyeri Yangın Sigortası",
-    "İşyeri Kasko Sigortası",
-    "İşyeri Sorumluluk Sigortası",
+  options: ["İşyeri Yangın Sigortası", "İşyeri Sorumluluk Sigortası"],
+  requirements: [
+    "TC",
+    "Doğum Tarihi",
+    "Telefon Numarası",
+    "İşyerinin Açık Adres Bilgisi",
+    "İşyerinin Bulunduğu Kat",
+    "İşyerinin Bulunduğu Kat Sayısı",
+    "İşyerinin yapım yılı",
+    "İşyerinin bulunduğu bina yapı tipi (Betonarme / Ahşap / Çelik)",
+    "İşyerinin bulunduğu bina kat sayısı",
+    "Kiracı mısınız, mülk sahibi misiniz?",
+    "DASK sigortası yaptırılmış mı?",
+    "Faaliyet konusu",
+    "İşyerinin bulunduğu bina sigorta bedeli",
+    "İşyerinin bulunduğu bina içindeki emtia/demirbaş sigorta bedeli",
+    "Bina içindeki makine ve tesisat sigorta bedeli",
   ],
 };
 
 // Hayat Sigortası
 export const LifeInsurance = {
   title: "Hayat Sigortası",
-  options: [
-    "Bireysel Hayat Sigortası",
-    "Grup Hayat Sigortası",
-    "Kredi Hayat Sigortası",
-  ],
-};
-
-// Kazanç Sigortası
-export const IncomeInsurance = {
-  title: "Kazanç Sigortası",
-  options: ["Gelir Sigortası", "İşsizlik Sigortası"],
-};
-
-// Mal Sigortası
-export const PropertyInsurance = {
-  title: "Mal Sigortası",
-  options: [
-    "Makine Kırılması Sigortası",
-    "Elektronik Cihaz Sigortası",
-    "Yangın Sigortası",
-    "Hırsızlık Sigortası",
-  ],
-};
-
-// İnşaat Sigortası
-export const ConstructionInsurance = {
-  title: "İnşaat Sigortası",
-  options: [
-    "İnşaat All Risk Sigortası",
-    "Montaj All Risk Sigortası",
-    "Mühendislik Sigortası",
+  options: ["Kredi Hayat Sigortası"],
+  requirements: [
+    "TC",
+    "Doğum Tarihi",
+    "Telefon Numarası",
+    "Faiz Oranı",
+    "Kredi Tutarı",
+    "Kredi Vadesi",
   ],
 };
 
 // Sorumluluk Sigortası
 export const LiabilityInsurance = {
   title: "Sorumluluk Sigortası",
-  options: [
-    "Mesleki Sorumluluk Sigortası",
-    "Üçüncü Şahıs Sorumluluk Sigortası",
-    "İşveren Sorumluluk Sigortası",
+  options: ["Mesleki Sorumluluk Sigortası"],
+  requirements: [
+    "TC",
+    "Doğum Tarihi",
+    "Telefon Numarası",
+    "Meslek Grubu",
+    "Çalıştığı Kurum",
+    "Mesleki Sorumluluk Sigortası Yaptırılacak Kişi Sayısı",
   ],
 };
 
@@ -109,9 +132,6 @@ export const GeneralInsuranceType = {
   TravelInsurance,
   BusinessInsurance,
   LifeInsurance,
-  IncomeInsurance,
-  PropertyInsurance,
-  ConstructionInsurance,
   LiabilityInsurance,
 };
 
@@ -122,9 +142,6 @@ export const PolicyObj = {
   TravelInsurance,
   BusinessInsurance,
   LifeInsurance,
-  IncomeInsurance,
-  PropertyInsurance,
-  ConstructionInsurance,
   LiabilityInsurance,
   GeneralInsuranceType,
 };
@@ -133,41 +150,39 @@ export const Policy = [
   {
     label: PolicyObj.BusinessInsurance.title,
     values: PolicyObj.BusinessInsurance.options,
+    requirements: PolicyObj.BusinessInsurance.requirements,
   },
-  {
-    label: PolicyObj.ConstructionInsurance.title,
-    values: PolicyObj.ConstructionInsurance.options,
-  },
+
   {
     label: PolicyObj.HealthInsurance.title,
     values: PolicyObj.HealthInsurance.options,
+    requirements: PolicyObj.HealthInsurance.requirements,
   },
   {
     label: PolicyObj.HomeInsurance.title,
     values: PolicyObj.HomeInsurance.options,
+    requirements: PolicyObj.HomeInsurance.requirements,
   },
-  {
-    label: PolicyObj.IncomeInsurance.title,
-    values: PolicyObj.IncomeInsurance.options,
-  },
+
   {
     label: PolicyObj.LiabilityInsurance.title,
     values: PolicyObj.LiabilityInsurance.options,
+    requirements: PolicyObj.LiabilityInsurance.requirements,
   },
   {
     label: PolicyObj.LifeInsurance.title,
     values: PolicyObj.LifeInsurance.options,
+    requirements: PolicyObj.LifeInsurance.requirements,
   },
-  {
-    label: PolicyObj.PropertyInsurance.title,
-    values: PolicyObj.PropertyInsurance.options,
-  },
+
   {
     label: PolicyObj.TravelInsurance.title,
     values: PolicyObj.TravelInsurance.options,
+    requirements: PolicyObj.TravelInsurance.requirements,
   },
   {
     label: PolicyObj.VehicleInsurance.title,
     values: PolicyObj.VehicleInsurance.options,
+    requirements: PolicyObj.VehicleInsurance.requirements,
   },
 ];
