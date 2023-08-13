@@ -1,1 +1,1 @@
-poliçe oluştururken premium tipinde hata var onları düzenle
+her resme uygun bir içerik ve başlık oluştur ve sıfır yazsıını kaldır

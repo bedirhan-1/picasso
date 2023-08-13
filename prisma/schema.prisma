@@ -45,7 +45,6 @@ model Claim {
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 }
-// Peki burda açılmayan dersleri diğer üniversiteden alsam kabul eder misiniz?
 
 // Policy (Poliçe) Modeli:
 

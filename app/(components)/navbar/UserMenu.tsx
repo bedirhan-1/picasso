@@ -15,6 +15,9 @@ export default function UserMenu({
   closeUserMenu,
 }: UserMenuProps) {
   const router = useRouter();
+  const exit = () => {
+    signOut();
+  };
 
   return (
     <div
@@ -40,7 +43,6 @@ export default function UserMenu({
           <span className='text-gray-400'>{currentUser?.email}</span>
         </div>
       </div>
-
       <div className='flex flex-col gap-3 font-light'>
         {User.map((item) => (
           <div key={item.name} onClick={closeUserMenu}>
@@ -52,7 +54,8 @@ export default function UserMenu({
       <Button
         text='Sign out'
         buttonType={ButtonTypes.Dark}
-        onClick={() => signOut()}
+        onClick={exit}
+        isDisabled={false}
       />
     </div>
   );
