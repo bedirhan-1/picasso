@@ -2,7 +2,7 @@ import Navbar from "./(components)/navbar/Navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import myUser from "./actions/getUser";
-import PolicyForm from "./(components)/createPolicy/PolicyForm";
+import Footer from "./(components)/footer/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +22,8 @@ export default async function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <Navbar myUser={myCurrentUser} />
-        {children}
+        <div className='min-h-[650px]'>{children}</div>
+        <Footer />
       </body>
     </html>
   );

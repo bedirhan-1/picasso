@@ -4,3 +4,17 @@ export type SafeUser = Omit<User, "createdAt" | "updatedAt"> & {
   createdAt: string;
   updatedAt: string;
 };
+
+export type ISlider = {
+  Image: IImage[];
+};
+
+export type IImage = {
+  src: string;
+  alt: string;
+  title: string;
+  description: string;
+  location: string;
+  bgColor: string;
+  textColor?: string;
+};
