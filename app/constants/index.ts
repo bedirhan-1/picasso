@@ -128,7 +128,10 @@ const footerLinks = [
     title: "Socials",
     links: [
       { title: "Discord", url: "/" },
-      { title: "Instagram", url: "/" },
+      {
+        title: "Instagram",
+        url: "https://www.instagram.com/mustafa_kurtulmus_sigorta/",
+      },
       { title: "Twitter", url: "/" },
       { title: "Facebook", url: "/" },
     ],

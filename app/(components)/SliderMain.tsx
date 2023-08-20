@@ -1,6 +1,5 @@
 "use client";
 
-// import { useEffect } from "react"; // AUTO SLIDE
 import { useState } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { IImage } from "../types";
@@ -22,46 +21,31 @@ export default function SliderMain({ content }: CarouselProps) {
     bgColor: currentImage.bgColor,
     textColor: currentImage.textColor,
   };
+
   const prevImage = () => {
-    const isFirstSlide = current === 0;
-    const newIndex = isFirstSlide ? content.length - 1 : current - 1;
+    const newIndex = (current - 1 + content.length) % content.length;
     setCurrent(newIndex);
   };
 
   const nextImage = () => {
-    const isLastSlide = current === content.length - 1;
-    const newIndex = isLastSlide ? 0 : current + 1;
+    const newIndex = (current + 1) % content.length;
     setCurrent(newIndex);
   };
 
-  // AUTO SLIDE
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     nextImage();
-  //   }, 5000);
-  //   return () => clearInterval(interval);
-  // }, [current]);
-
   return (
     <div className='relative flex justify-center items-center my-10'>
-      <button
-        onClick={prevImage}
-        className='absolute left-[2%] top-[50%] z-[40]'
-      >
+      <button onClick={prevImage} className='absolute left-[2%] top-[50%] z-40'>
         <BsArrowLeft size={36} color='blue' />
       </button>
       <div className='align-middle'>
         <img
           src={currentImage.src}
           alt={currentImage.alt}
-          className='h-[600px] object-cover self-center shadow-xl m-2 rounded-3xl'
+          className='h-[600px] w-full object-cover shadow-xl m-2 rounded-3xl'
         />
-        {current !== null ? <BasicCard {...basicCardProps} /> : undefined}
+        {currentImage && <BasicCard {...basicCardProps} />}
       </div>
-      <button
-        onClick={nextImage}
-        className='absolute right-[2%] top-[50%] z-[40]'
-      >
+      <button onClick={nextImage} className='absolute right-[2%] top-[50%] z-40'>
         <BsArrowRight size={36} color='blue' />
       </button>
     </div>

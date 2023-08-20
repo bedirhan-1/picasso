@@ -13,11 +13,12 @@ const Footer = () => (
           height={18}
           className='object-contain'
         />
-        <p className='text-base text-gray-700'>
+        <p className='text-base text-gray-500'>
           MKsigorta 2023 <br />
           Tüm hakları saklıdır. &copy;
         </p>
       </div>
+      MKsigorta 2023
 
       <div className='flex-1 w-full flex md:justify-end flex-wrap max-md:mt-10 gap-20'>
         {footerLinks.map((item) => (
@@ -43,7 +44,7 @@ const Footer = () => (
     </div>
 
     <div className='flex justify-between items-center flex-wrap mt-2 border-t  sm:px-16 px-6 py-2 pb-6'>
-      <p>@2023 MKSigorta. All rights reserved</p>
+      <p>@2023 MKSigorta. Tğm hakları saklıdır</p>
       <div className='flex-1 flex sm:justify-end justify-center max-sm:mt-2 gap-10'>
         <Link href='/' className='text-gray-500'>
           Privacy & Policy

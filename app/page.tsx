@@ -1,7 +1,6 @@
 "use client";
 import SliderMain from "./(components)/SliderMain";
 import { slider } from "./constants";
-import { ThemeProvider } from "next-themes";
 
 export interface ISliderType {
   image: string;
@@ -16,9 +15,7 @@ export default async function Home() {
 
   return (
     <main className='w-full'>
-      <ThemeProvider attribute='class'>
-        <SliderMain content={slidenPics} />
-      </ThemeProvider>
+      <SliderMain content={slidenPics} />
     </main>
   );
 }
