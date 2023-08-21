@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Policy } from "../constants/Policies";
+import { Policy } from "../constants/policies";
 import PolicyInput from "../(components)/inputs/PolicyInput";
 import { InputTypesForInputBoxes } from "../constants/inputTypes";
 
@@ -9,7 +9,6 @@ interface PolicyOption {
   values: string[];
   requirements: string[];
 }
-
 
 const InsuranceForm = () => {
   const [formData, setFormData] = useState({});
@@ -82,7 +81,7 @@ const InsuranceForm = () => {
         <div>
           {selectedOption !== "" && selectedPolicy.requirements.length > 0 && (
             <div>
-              <ul className="list-disc ml-6">
+              <ul className="list-disc">
                 {selectedPolicy.requirements.map((requirementValue) => (
                   <div key={requirementValue}>
                     <PolicyInput
