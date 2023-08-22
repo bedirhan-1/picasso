@@ -11,39 +11,40 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  name            String?
-  surname         String?
-  email           String    @unique
-  hashedPassword  String
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  policies        Policy[]
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  surname        String?
+  email          String   @unique
+  hashedPassword String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  policies       Policy[]
 }
 
 model Policy {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  policyNumber    String    @unique
-  type            String
-  startDate       DateTime
-  endDate         DateTime
-  premium         Float
-  userId          String    @map("_userId") @db.ObjectId
-  user            User      @relation(fields: [userId], references: [id])
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  claims          Claim[]
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  policyNumber String   @unique
+  type         String
+  startDate    DateTime
+  endDate      DateTime
+  premium      Float
+  userId       String   @map("_userId") @db.ObjectId
+  user         User     @relation(fields: [userId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  claims       Claim[]
+  formData     Json?    @map("_formData") @db.Json // JSON field
 }
 
 model Claim {
-  id              String    @id @default(auto()) @map("_id") @db.ObjectId
-  claimNumber     String    @unique
-  policyId        String    @map("_policyId") @db.ObjectId
-  policy          Policy    @relation(fields: [policyId], references: [id])
-  description     String
-  status          String
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  claimNumber String   @unique
+  policyId    String   @map("_policyId") @db.ObjectId
+  policy      Policy   @relation(fields: [policyId], references: [id])
+  description String
+  status      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 // Policy (Poliçe) Modeli:
@@ -59,7 +60,6 @@ model Claim {
 // poliçeye sahip olabilir.
 // createdAt: Poliçenin oluşturulduğu tarih.
 // updatedAt: Poliçenin son güncellenme tarihi.
-
 
 // Claim (Hasar Talebi) Modeli:
 

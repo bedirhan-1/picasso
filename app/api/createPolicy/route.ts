@@ -1,20 +1,52 @@
-import { NextResponse } from "next/server";
-import prisma from "../../lib/prismadb";
+import { PrismaClient } from "@prisma/client";
 
-export async function POST(request: Request) {
-  const body = await request.json();
-  const { policyNumber, type, startDate, endDate, premium, userId } = body;
+const prisma = new PrismaClient();
 
-  const policy = await prisma.policy.create({
-    data: {
-      policyNumber,
-      type,
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-      premium,
-      userId,
-    },
-  });
+// Politika (Policy) ekleme fonksiyonu
+export async function createPolicy(
+  policyNumber: string,
+  type: string,
+  startDate: Date,
+  endDate: Date,
+  premium: number,
+  userId: string
+): Promise<any> {
+  try {
+    const yeniPolitika = await prisma.policy.create({
+      data: {
+        policyNumber,
+        type,
+        startDate,
+        endDate,
+        premium,
+        userId,
+      },
+    });
 
-  return NextResponse.json(policy);
+    return yeniPolitika;
+  } catch (error) {
+    throw new Error("Politika oluşturulurken bir hata oluştu: " + error);
+  }
 }
+
+// Kullanıcıları ve politikaları almak için örnek bir fonksiyon
+export async function getUserWithPolicies(userId: string): Promise<any> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      include: {
+        policies: true, // Kullanıcının tüm politikalarını alır
+      },
+    });
+
+    return user;
+  } catch (error) {
+    throw new Error(
+      "Kullanıcı ve politikalarını alırken bir hata oluştu: " + error
+    );
+  }
+}
+
+export { prisma };

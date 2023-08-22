@@ -10,7 +10,7 @@ const Footer = () => (
           src='/logo.png'
           alt='logo'
           width={118}
-          height={18}
+          height={118}
           className='object-contain'
         />
         <p className='text-base text-gray-500'>

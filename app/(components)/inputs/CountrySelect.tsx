@@ -13,7 +13,6 @@ const CountrySelect: React.FC<Props> = ({ selectCountry }) => {
     const [countries, setCountries] = useState<Country[]>([]);
 
     useEffect(() => {
-        // Rest Countries API'den ülke verilerini al
         fetch('https://restcountries.com/v2/all')
             .then((response) => response.json())
             .then((data) => {

@@ -3,9 +3,10 @@ import { useState } from 'react';
 interface MeasurementInputProps {
     label: string;
     unit: string;
+    onChange: (value: string) => void;
 }
 
-const MeasurementInput: React.FC<MeasurementInputProps> = ({ label, unit }) => {
+const MeasurementInput: React.FC<MeasurementInputProps> = ({ label, unit, onChange }) => {
     const [measurement, setMeasurement] = useState<string>('');
     const [isValid, setIsValid] = useState<boolean>(true);
     const [errorMessage, setErrorMessage] = useState<string>('');
@@ -24,6 +25,7 @@ const MeasurementInput: React.FC<MeasurementInputProps> = ({ label, unit }) => {
 
     const handleMeasurementChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = event.target.value;
+        onChange(newValue);
         setMeasurement(newValue);
         validateMeasurement(newValue);
     };

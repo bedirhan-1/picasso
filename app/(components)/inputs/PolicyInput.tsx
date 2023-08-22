@@ -4,28 +4,45 @@ import PlateInput from "./PlateInput";
 import TCKNInput from "./TCKNInput";
 import MeasurementInput from "./MeasurementInput";
 import SelectNumberInput from "./SelectNumberInput";
-import GenderInput from "./GenderInput";
 import PassportInput from "./PassportInput";
 import DateInput from "./DateInput";
 import CountrySelect from "./CountrySelect";
 import MultiOptionSelect from "./MultiOptionSelect";
 import TextInput from "./TextInput";
 import PercentageInput from "./PercentageInput";
+import YearSelect from "./YearSelect";
+import { useState } from "react";
 
+interface formType {
+    label: string,
+    value: any
+}
 
 interface PolicyOption {
     inputType: keyof typeof InputTypesForInputBoxes;
     options?: string[];
     label: string;
-    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     setPhoneNumber?: (phone: string) => void;
+    setForm: (e: formType[]) => void;
 }
 
-const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOption) => {
+
+const PolicyInput = ({ inputType, label, setPhoneNumber, setForm }: PolicyOption) => {
+    const [formArray, setFormArray] = useState<Array<formType>>([]);
     const commonProps = {
         className: "border rounded p-2 w-full",
-        onChange: onChange,
     };
+
+
+    const createObjectArrayFromValues = (value: any, title: string) => {
+        const index = formArray.findIndex((item: { label: string; }) => item.label === title);
+        if (index !== -1) {
+            formArray[index].value = value;
+        } else {
+            formArray.push(...formArray, { label: title, value: value });
+        }
+        setForm(formArray)
+    }
 
     const getInputComponent = () => {
         switch (inputType) {
@@ -33,7 +50,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                 return (
                     <div className=" w-[200px] mb-6">
                         <TCKNInput
-                            onChange={(TCKN: string) => console.log(TCKN)}
+                            onChange={(newValue: string) => createObjectArrayFromValues(newValue, label)}
                         />
                     </div>
                 );
@@ -42,7 +59,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                     <div className=" w-[200px] mb-6">
                         <MultiOptionSelect
                             options={[""]}
-                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                            onSelect={(newValue: string) => createObjectArrayFromValues(newValue, label)}
                         />
                     </div>
                 );
@@ -51,7 +68,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                     <div className="items-center flex mb-6">
                         <MultiOptionSelect
                             options={["Erkek", "Kadın"]}
-                            onSelect={(selectedGender: string) => console.log(selectedGender)}
+                            onSelect={(newValue: string) => createObjectArrayFromValues(newValue, label)}
                         />
                     </div>
                 );
@@ -62,33 +79,39 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                             min={1}
                             max={10}
                             step={1}
-                            onSelect={(selectedValue: any) => console.log(selectedValue)}
+                            onSelect={(newValue: number) => createObjectArrayFromValues(newValue, label)}
                         />
                     </div>
                 );
             case "height":
                 return (
                     <div className=" w-[200px] mb-6">
-                        <MeasurementInput label="Boy" unit="cm" />
+                        <MeasurementInput label="Boy" unit="cm" onChange={
+                            (newValue: string) => createObjectArrayFromValues(newValue, label)
+                        } />
                     </div>
                 );
             case "weight":
                 return (
                     <div className=" w-[200px] mb-6">
-                        <MeasurementInput label="Kilo" unit="kg" />
+                        <MeasurementInput label="Kilo" unit="kg" onChange={
+                            (newValue: string) => createObjectArrayFromValues(newValue, label)
+                        } />
                     </div>
                 );
             case "number":
                 return (
                     <div className=" w-[200px] mb-6">
-                        <input type="number" {...commonProps} />
+                        <input type="number" {...commonProps}
+                            onChange={(newValue) => createObjectArrayFromValues(newValue, label)}
+                        />
                     </div>
                 );
             case "date":
                 return (
                     <div className=" w-[200px] mb-6">
                         <DateInput
-                            onDateSelect={(selectedDate: string) => console.log(selectedDate)}
+                            onDateSelect={(selectedDate: string) => createObjectArrayFromValues(selectedDate, label)}
                         />
                     </div>
                 );
@@ -96,8 +119,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                 return (
                     <div className=" w-[50%] mb-6">
                         <TextInput
-                            value=""
-                            onChange={(newValue: string) => console.log(newValue)}
+                            onChange={(newValue: string) => createObjectArrayFromValues(newValue, label)}
                         />
                     </div>
                 );
@@ -106,7 +128,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                     <div className=" w-[200px] mb-6">
                         <MultiOptionSelect
                             options={["Kiracı", "Mülk Sahibi"]}
-                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                            onSelect={(selectedOption: string) => createObjectArrayFromValues(selectedOption, label)}
                         />
                     </div>
                 );
@@ -115,7 +137,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                     <div className=" w-[200px] mb-6">
                         <MultiOptionSelect
                             options={["Mesken", "İşyeri", "İkametgah", "Depo", "Diğer"]}
-                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                            onSelect={(selectedOption: string) => createObjectArrayFromValues(selectedOption, label)}
                         />
                     </div>
                 );
@@ -124,7 +146,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                     <div className=" w-[200px] mb-6">
                         <MultiOptionSelect
                             options={["Ahşap", "Betonarme", "Çelik", "Kargir", "Diğer"]}
-                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                            onSelect={(selectedOption: string) => createObjectArrayFromValues(selectedOption, label)}
                         />
                     </div>
                 );
@@ -133,7 +155,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                     <div className=" w-[200px] mb-6">
                         <MultiOptionSelect
                             options={["Apartman", "Müstakil Ev", "Yalı", "Diğer"]}
-                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                            onSelect={(selectedOption: string) => createObjectArrayFromValues(selectedOption, label)}
                         />
                     </div>
                 );
@@ -142,7 +164,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                     <div className=" w-[200px] mb-6">
                         <MultiOptionSelect
                             options={["Eş", "Çocuk", "Anne", "Baba", "Diğer"]}
-                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                            onSelect={(selectedOption: string) => createObjectArrayFromValues(selectedOption, label)}
                         />
                     </div>
                 );
@@ -151,7 +173,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                     <div className="items-center flex mb-6">
                         <MultiOptionSelect
                             options={["Tatil", "İş", "Tedavi", "Eğitim", "Diğer"]}
-                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                            onSelect={(selectedOption: string) => createObjectArrayFromValues(selectedOption, label)}
                         />
                     </div>
                 );
@@ -160,7 +182,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                     <div className="items-center flex mb-6">
                         <MultiOptionSelect
                             options={["Evet", "Hayır"]}
-                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                            onSelect={(selectedOption: string) => createObjectArrayFromValues(selectedOption, label)}
                         />
                     </div>
                 );
@@ -168,31 +190,23 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                 return (
                     <div className="mb-6">
                         <PlateInput
-                            onChange={(selectedPlate: string) => console.log(selectedPlate)}
+                            onChange={(selectedPlate: string) => createObjectArrayFromValues(selectedPlate, label)}
                         />
                     </div>
                 );
             case "year":
                 return (
                     <div className=" w-[200px]  mb-6">
-                        <select
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        >
-                            <option value="" >Seçiniz...</option>
-                            {/* get year from now - i */}
-                            {Array.from(Array(200).keys()).map((i) => (
-                                <option key={i} value={i} className="border rounded p-2">
-                                    {new Date().getFullYear() - i}
-                                </option>
-                            ))}
-                        </select>
+                        <YearSelect
+                            onChange={(selectedYear: number) => createObjectArrayFromValues(selectedYear, label)}
+                        />
                     </div >
                 );
             case "percentage":
                 return (
                     <div className=" w-[200px] mb-6">
                         <PercentageInput
-                            onChange={(newValue: string) => console.log(newValue)}
+                            onChange={(newValue: string) => createObjectArrayFromValues(newValue, label)}
                         />
                     </div>
                 );
@@ -200,7 +214,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                 return (
                     <div className=" w-[200px] mb-6">
                         <PassportInput
-                            onInput={(selectedPassport: string) => console.log(selectedPassport)}
+                            onInput={(selectedPassport: string) => createObjectArrayFromValues(selectedPassport, label)}
                         />
                     </div>
                 );
@@ -208,7 +222,7 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                 return (
                     <div className=" w-[200px] mb-6">
                         <CountrySelect
-                            selectCountry={(selectedCountry: string) => console.log(selectedCountry)}
+                            selectCountry={(selectedCountry: string) => createObjectArrayFromValues(selectedCountry, label)}
                         />
                     </div>
                 );
@@ -236,16 +250,17 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                         width: "100%",
                         height: "40px",
                         borderRadius: "5px",
-                        border: "1px solid #ced4da",
+                        border: "none",
                         paddingLeft: "10px",
                     }}
                     containerStyle={{
                         width: "200px",
                         marginBottom: "20px",
+                        border: "none"
                     }}
                     onChange={(phone: string) => {
                         setPhoneNumber && setPhoneNumber(phone)
-                        console.log(phone) // phone
+                        createObjectArrayFromValues(phone, label)
                     }}
                 />
             )}
@@ -254,3 +269,4 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
 };
 
 export default PolicyInput;
+

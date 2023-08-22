@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Policy } from "../constants/policies";
 import PolicyInput from "../(components)/inputs/PolicyInput";
 import { InputTypesForInputBoxes } from "../constants/inputTypes";
+import Button, { ButtonTypes } from "../(components)/buttons/Button";
 
 interface PolicyOption {
   label: string;
@@ -11,7 +12,7 @@ interface PolicyOption {
 }
 
 const InsuranceForm = () => {
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState<{ label: string, value: any }[]>();
   const [selectedPolicy, setSelectedPolicy] = useState<PolicyOption | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [phoneNumber, setPhoneNumber] = useState<string | undefined>("");
@@ -24,10 +25,7 @@ const InsuranceForm = () => {
     }
   };
 
-  const handleInputChange = (event: { target: { name: any; value: any; }; }) => {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  };
+
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
@@ -88,13 +86,14 @@ const InsuranceForm = () => {
                       inputType={InputTypesForInputBoxes[requirementValue]}
                       label={requirementValue}
                       setPhoneNumber={setPhoneNumber}
-                      onChange={handleInputChange}
+                      setForm={setFormData}
                     />
                   </div>
                 ))}
               </ul>
             </div>
           )}
+          <Button text={"Form Gönder"} onClick={() => console.log(formData)} buttonType={ButtonTypes.Secondary} isDisabled={false} />
         </div>
       )}
     </div>
