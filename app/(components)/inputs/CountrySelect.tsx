@@ -11,7 +11,7 @@ interface Props {
 
 const CountrySelect: React.FC<Props> = ({ selectCountry }) => {
     const [countries, setCountries] = useState<Country[]>([]);
-    const [selectedCountry, setSelectedCountry] = useState<string>('');
+
     useEffect(() => {
         // Rest Countries API'den ülke verilerini al
         fetch('https://restcountries.com/v2/all')
@@ -30,7 +30,6 @@ const CountrySelect: React.FC<Props> = ({ selectCountry }) => {
 
     const handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const newCountry = event.target.value;
-        setSelectedCountry(newCountry);
         selectCountry(newCountry);
     };
 

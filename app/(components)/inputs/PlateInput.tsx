@@ -1,6 +1,10 @@
 import { useState } from 'react';
 
-const PlateInput = () => {
+interface PlateInputProps {
+    onChange: (selectedOption: string) => void;
+}
+
+const PlateInput: React.FC<PlateInputProps> = ({ onChange }) => {
     const [plate, setPlate] = useState('');
     const [isValid, setIsValid] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
@@ -20,10 +24,11 @@ const PlateInput = () => {
         const newPlate = event.target.value;
         setPlate(newPlate);
         validatePlate(newPlate);
+        onChange(newPlate);
     };
 
     return (
-        <div className="my-4">
+        <div className="">
             <input
                 className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${!isValid ? 'border-red-500' : ''
                     }`}

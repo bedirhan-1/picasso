@@ -1,6 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const TCKNInput = () => {
+interface TCKNInputProps {
+    onChange: (selectedOption: string) => void;
+}
+
+const TCKNInput: React.FC<TCKNInputProps> = ({ onChange }) => {
     const [tckn, setTCKN] = useState('');
     const [isValid, setIsValid] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
@@ -14,11 +18,11 @@ const TCKNInput = () => {
                 setErrorMessage('');
             } else {
                 setIsValid(false);
-                setErrorMessage('Geçersiz TCKN');
+                setErrorMessage('Geçersiz TC');
             }
         } else {
             setIsValid(false);
-            setErrorMessage('Geçersiz TCKN formatı');
+            setErrorMessage('Geçersiz TC formatı');
         }
     };
 
@@ -39,6 +43,7 @@ const TCKNInput = () => {
         const newTCKN = event.target.value;
         setTCKN(newTCKN);
         validateTCKN(newTCKN);
+        onChange(newTCKN);
     };
 
     return (

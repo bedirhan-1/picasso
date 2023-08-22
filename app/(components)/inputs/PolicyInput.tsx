@@ -5,10 +5,13 @@ import TCKNInput from "./TCKNInput";
 import MeasurementInput from "./MeasurementInput";
 import SelectNumberInput from "./SelectNumberInput";
 import GenderInput from "./GenderInput";
-import CountryInput from "./CountryInput";
 import PassportInput from "./PassportInput";
 import DateInput from "./DateInput";
-import CountrySelect from "./CountryInput";
+import CountrySelect from "./CountrySelect";
+import MultiOptionSelect from "./MultiOptionSelect";
+import TextInput from "./TextInput";
+import PercentageInput from "./PercentageInput";
+
 
 interface PolicyOption {
     inputType: keyof typeof InputTypesForInputBoxes;
@@ -29,13 +32,25 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
             case "tc":
                 return (
                     <div className=" w-[200px] mb-6">
-                        <TCKNInput />
+                        <TCKNInput
+                            onChange={(TCKN: string) => console.log(TCKN)}
+                        />
                     </div>
                 );
-            case "selectGender":
+            case "multiselectfamily":
+                return (
+                    <div className=" w-[200px] mb-6">
+                        <MultiOptionSelect
+                            options={[""]}
+                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                        />
+                    </div>
+                );
+            case "multiSelectGender":
                 return (
                     <div className="items-center flex mb-6">
-                        <GenderInput
+                        <MultiOptionSelect
+                            options={["Erkek", "Kadın"]}
                             onSelect={(selectedGender: string) => console.log(selectedGender)}
                         />
                     </div>
@@ -80,28 +95,89 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
             case "text":
                 return (
                     <div className=" w-[50%] mb-6">
-                        <input type="text" {...commonProps} />
+                        <TextInput
+                            value=""
+                            onChange={(newValue: string) => console.log(newValue)}
+                        />
                     </div>
                 );
-            case "booleanyn":
+            case "multiSelectTenant":
+                return (
+                    <div className=" w-[200px] mb-6">
+                        <MultiOptionSelect
+                            options={["Kiracı", "Mülk Sahibi"]}
+                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                        />
+                    </div>
+                );
+            case "multiSelectHomeUsage":
+                return (
+                    <div className=" w-[200px] mb-6">
+                        <MultiOptionSelect
+                            options={["Mesken", "İşyeri", "İkametgah", "Depo", "Diğer"]}
+                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                        />
+                    </div>
+                );
+            case "multiSelectBuildingType":
+                return (
+                    <div className=" w-[200px] mb-6">
+                        <MultiOptionSelect
+                            options={["Ahşap", "Betonarme", "Çelik", "Kargir", "Diğer"]}
+                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                        />
+                    </div>
+                );
+            case "multiselectHomeType":
+                return (
+                    <div className=" w-[200px] mb-6">
+                        <MultiOptionSelect
+                            options={["Apartman", "Müstakil Ev", "Yalı", "Diğer"]}
+                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                        />
+                    </div>
+                );
+            case "multiSelectFamily":
+                return (
+                    <div className=" w-[200px] mb-6">
+                        <MultiOptionSelect
+                            options={["Eş", "Çocuk", "Anne", "Baba", "Diğer"]}
+                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                        />
+                    </div>
+                );
+            case "multiSelectTravelPurpose":
                 return (
                     <div className="items-center flex mb-6">
-                        <input type="radio" name="yesno" value="yes" />
-                        <label className="ml-2">Evet</label>
-                        <input type="radio" className="ml-6" name="yesno" value="no" />
-                        <label className="ml-2">Hayır</label>
+                        <MultiOptionSelect
+                            options={["Tatil", "İş", "Tedavi", "Eğitim", "Diğer"]}
+                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                        />
+                    </div>
+                );
+            case "multiselectyn":
+                return (
+                    <div className="items-center flex mb-6">
+                        <MultiOptionSelect
+                            options={["Evet", "Hayır"]}
+                            onSelect={(selectedOption: string) => console.log(selectedOption)}
+                        />
                     </div>
                 );
             case "plate":
                 return (
                     <div className="mb-6">
-                        <PlateInput />
+                        <PlateInput
+                            onChange={(selectedPlate: string) => console.log(selectedPlate)}
+                        />
                     </div>
                 );
             case "year":
                 return (
                     <div className=" w-[200px]  mb-6">
-                        <select>
+                        <select
+                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        >
                             <option value="" >Seçiniz...</option>
                             {/* get year from now - i */}
                             {Array.from(Array(200).keys()).map((i) => (
@@ -110,6 +186,14 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                                 </option>
                             ))}
                         </select>
+                    </div >
+                );
+            case "percentage":
+                return (
+                    <div className=" w-[200px] mb-6">
+                        <PercentageInput
+                            onChange={(newValue: string) => console.log(newValue)}
+                        />
                     </div>
                 );
             case "passportNumber":
@@ -159,10 +243,12 @@ const PolicyInput = ({ inputType, label, onChange, setPhoneNumber }: PolicyOptio
                         width: "200px",
                         marginBottom: "20px",
                     }}
-
+                    onChange={(phone: string) => {
+                        setPhoneNumber && setPhoneNumber(phone)
+                        console.log(phone) // phone
+                    }}
                 />
             )}
-
         </div>
     );
 };
