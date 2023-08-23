@@ -32,9 +32,8 @@ const Input: React.FC<InputProps> = ({
       onChange={onChange}
       value={value}
       name={name}
-      className={`rounded-md w-full p-4 pt-6 font-light bg-white border-2 outline-none transition disabled:opacity-70 text-black ${
-        textArea ? "w-700px" : "w-full"
-      } ${big ? "w-[700px] pb-[1rem]" : ""}`}
+      className={`rounded-md w-full p-4 pt-6 font-light bg-white border-2 outline-none transition disabled:opacity-70 text-black ${textArea ? "w-700px" : "w-full"
+        } ${big ? "w-[700px] pb-[1rem]" : ""}`}
     />
   );
 };

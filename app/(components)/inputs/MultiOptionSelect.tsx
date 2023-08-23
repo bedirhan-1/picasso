@@ -18,7 +18,7 @@ const MultiOptionSelect: React.FC<MultiOptionSelectProps> = ({ options, onSelect
         <div>
             <select
                 id="multiOption"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 value={selectedOption}
                 onChange={handleOptionChange}
             >

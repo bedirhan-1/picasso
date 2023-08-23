@@ -32,14 +32,14 @@ const InsuranceForm = () => {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-8 justify-center">
       <h1 className="text-2xl font-semibold mb-4">Poliçe Formu Oluştur</h1>
       <div className="mb-4">
         <label className="block mb-2">Yaptırmak istediğiniz sigorta türünü seçiniz:</label>
         <select
           onChange={handlePolicyChange}
           value={selectedPolicy?.label || ""}
-          className="border rounded p-2 w-full"
+          className="border rounded p-2 "
         >
           <option value="">Seçiniz...</option>
           {Policy.map((policy) => (
@@ -49,7 +49,7 @@ const InsuranceForm = () => {
           ))}
         </select>
         {!selectedPolicy && (
-          <div className="bg-slate-300 my-2 align-middle rounded-[10px] mt-5">
+          <div className="bg-slate-300 my-2 rounded-[10px]">
             <div className="text-center text-cyan-800 text-xl py-6">
               Lütfen uygun tercihleri yapınız. Örneğin aracınıza kasko yaptırmak istediğiniz bir senaryo için:
               <br />
@@ -64,7 +64,7 @@ const InsuranceForm = () => {
           <select
             value={selectedOption || ""}
             onChange={handleOptionChange}
-            className="border rounded p-2 w-full"
+            className="border rounded p-2"
           >
             <option value="">Birini seçiniz...</option>
             {selectedPolicy.values.map((option) => (

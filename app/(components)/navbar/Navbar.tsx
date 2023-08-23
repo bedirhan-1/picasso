@@ -44,7 +44,7 @@ const Navbar: React.FC<UserMenuProps> = ({ myUser }) => {
           <Link href='/about' className='px-2'>
             Hakkımızda
           </Link>
-          {!myUser && (
+          {/* {!myUser && (
             <Link
               href='/login'
               className='py-2 pr-6 rounded-full text-blue-700'
@@ -64,7 +64,7 @@ const Navbar: React.FC<UserMenuProps> = ({ myUser }) => {
             <div className='absolute bottom-0 top-20 right-20 text-black'>
               <UserMenu currentUser={myUser} closeUserMenu={closeUserMenu} />
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>

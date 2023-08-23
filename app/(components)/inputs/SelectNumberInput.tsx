@@ -1,41 +1,32 @@
-import { useState } from 'react';
+import React from 'react';
+import { BsArrowUp, BsArrowUpShort } from 'react-icons/bs';
 
-interface SelectNumberInputProps {
-    min: number;
-    max: number;
-    step: number;
-    onSelect: (selectedValue: number) => void;
+interface NumberSelectProps {
+    onChange: (newNumber: number) => void;
 }
 
-const SelectNumberInput: React.FC<SelectNumberInputProps> = ({
-    min,
-    max,
-    step,
-    onSelect,
-}) => {
-    const [selectedValue, setSelectedValue] = useState<number>(min);
-
-    const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = parseFloat(event.target.value);
-        if (!isNaN(newValue) && newValue >= min && newValue <= max) {
-            setSelectedValue(newValue);
-            onSelect(newValue);
-        }
+const NumberSelect: React.FC<NumberSelectProps> = ({ onChange }) => {
+    const handleNumberChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const newNumber = parseInt(event.target.value);
+        onChange(newNumber);
     };
 
+    const options = Array.from({ length: 100 }, (_, index) => (
+        <option key={index + 1} value={index + 1}>
+            {index + 1}
+        </option>
+    ));
+
     return (
-        <div className="my-4">
-            <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                type="number"
-                min={min}
-                max={max}
-                step={step}
-                value={selectedValue}
-                onChange={handleValueChange}
-            />
+        <div className="flex">
+            <select
+                onChange={handleNumberChange}
+                className="shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+                {options}
+            </select>
         </div>
     );
 };
 
-export default SelectNumberInput;
+export default NumberSelect;

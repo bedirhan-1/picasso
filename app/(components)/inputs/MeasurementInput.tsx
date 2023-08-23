@@ -33,7 +33,7 @@ const MeasurementInput: React.FC<MeasurementInputProps> = ({ label, unit, onChan
     return (
         <div className="my-4">
             <input
-                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${!isValid ? 'border-red-500' : ''
+                className={`shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${!isValid ? 'border-red-500' : ''
                     }`}
                 type="number"
                 step="0.01"

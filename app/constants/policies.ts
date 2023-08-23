@@ -102,7 +102,7 @@ export const LifeInsurance = {
     "TC",
     "Doğum Tarihi",
     "Telefon Numarası",
-    "Faiz Oranı",
+    "Faiz Oranı (%)",
     "Kredi Tutarı",
     "Kredi Vadesi",
   ],
