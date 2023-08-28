@@ -22,7 +22,7 @@ export default async function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <Navbar myUser={myCurrentUser} />
-        <div className='min-h-[650px]'>{children}</div>
+        <div className='min-h-[750px]'>{children}</div>
         <Footer />
       </body>
     </html>

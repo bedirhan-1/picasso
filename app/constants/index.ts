@@ -141,7 +141,39 @@ const footerLinks = [
 const About = [
   {
     aboutTitle: "Biz Kimiz?",
-    aboutText: "Sigorta poliçeleri oluşturmak için doğru yerdesiniz.",
+    aboutText: `MKSigorta: Güven ve İhtimamın Temsilcisi
+
+Yaşamın beklenmedik sürprizlerle dolu olduğunu biliyoruz. Bu yüzden, sizi korumak ve güvende hissettirmek için buradayız.
+
+Kimiz?
+
+MKSigorta, 2007 yılında Mustafa Kurtulmuş tarafından kurulan bir sigorta şirketidir. 36 yıllık birikim ve deneyimle yola çıktık ve başlangıçta küçük bir ofiste hizmet vermeye başladık. Ancak bugün, Türkiye'nin dört bir yanındaki müşterilere hizmet veren saygın bir sigorta kuruluşu haline geldik.
+
+Misyonumuz
+
+Misyonumuz, müşterilerimize finansal güvence sağlamaktır. Hayatın her döneminde, her türlü riski öngörmek ve bu risklere karşı en iyi korumayı sağlamak amacıyla çalışıyoruz. MKSigorta olarak, müşterilerimizin ihtiyaçlarına uygun sigorta çözümleri sunarak, onların geleceğini güvence altına almayı taahhüt ediyoruz.
+
+Vizyonumuz
+
+Vizyonumuz, sigorta sektöründe lider bir marka olmaktır. Müşteri memnuniyetini en üst düzeye çıkarmak için sürekli olarak kendimizi geliştiriyoruz. İnovasyon ve teknolojiyi yakından takip ediyor, en iyi hizmeti sunabilmek için sürekli çaba sarf ediyoruz.
+
+Değerlerimiz
+
+Güvenilirlik: Müşterilerimize ve iş ortaklarımıza karşı her zaman güvenilir ve dürüst olmayı taahhüt ediyoruz.
+Müşteri Odaklılık: Müşterilerimizin ihtiyaçlarını anlamak ve onlara en iyi hizmeti sunmak için çaba gösteriyoruz.
+Kalite: Kaliteli hizmet sunmak için sürekli olarak kendimizi geliştiriyoruz.
+Sosyal Sorumluluk: Topluma ve çevreye karşı sorumluluk sahibi bir işletme olarak, sürdürülebilirlik ilkesini benimsiyoruz.
+Neden Bize Güvenmelisiniz?
+
+MKSigorta, müşterilerinin güvenini kazanmayı ve sürdürmeyi en önemli öncelik olarak kabul eder. Her bir müşteriye özel çözümler sunarak, onların ihtiyaçlarına en iyi şekilde cevap veririz. Profesyonel ekibimiz, sektördeki en son gelişmeleri yakından takip eder ve size en iyi hizmeti sunmak için sürekli çaba sarf eder.
+</br>  
+Bize Ulaşın
+
+MKSigorta olarak, sizin ve sevdiklerinizin güvende olması için buradayız. Bizimle iletişime geçmekten çekinmeyin. Sorularınızı yanıtlamaktan ve sizin için en iyi sigorta çözümünü bulmaktan mutluluk duyarız. İşte bizimle iletişime geçebileceğiniz bilgiler:
+
+Sizleri MKSigorta ailesine katılmaya davet ediyoruz. Güvence altında bir gelecek için bize güvenebilirsiniz.
+
+Bu yazı, MKSigorta'nın tarihini, misyonunu, vizyonunu, değerlerini ve neden tercih edilmesi gerektiğini anlatan kapsamlı bir "Biz Kimiz" açıklaması sunar. Ayrıca iletişim bilgileriyle müşterilere kolayca ulaşma fırsatı verir.`,
   },
 ];
 

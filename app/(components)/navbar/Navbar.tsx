@@ -1,50 +1,38 @@
 "use client";
-import { useState } from "react";
-import { BsPersonCircle } from "react-icons/bs";
+// import { useState } from "react";
+// import { BsPersonCircle } from "react-icons/bs";
 import Link from "next/link";
 import { SafeUser } from "@/app/types";
-import UserMenu from "./UserMenu";
+// import UserMenu from "./UserMenu";
 
 interface UserMenuProps {
   myUser: SafeUser | null;
 }
 
 const Navbar: React.FC<UserMenuProps> = ({ myUser }) => {
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  // const [userMenuOpen, setUserMenuOpen] = useState(false);
 
-  const closeUserMenu = () => {
-    setUserMenuOpen(false);
-  };
+  // const closeUserMenu = () => {
+  //   setUserMenuOpen(false);
+  // };
+
 
   return (
-    <div className='sticky top-0 z-50  bg-opacity-40 backdrop-blur-xl px-5 py-1 shadow-lg'>
-      <div className='flex items-center justify-between gap-2'>
-        <div className='flex items-center gap-6 flex-1 relative'>
-          <Link href='/' className='flex items-center gap-7 justify-center'>
-            <img
-              src='/mksigorta-aracilik.png'
-              alt='Logo'
-              className='object-cover rounded-xl'
-              width={400}
-            />
-            <h1>
-              Mustafa Kurtulmuş Araclılık ve
-              <br />
-              Sigortacılık Hizmetleri
-            </h1>
-          </Link>
-        </div>
-        <div className='flex items-center pl-10 rounded-full gap-10'>
-          <Link href='/' className='px-2'>
+    <div className='sticky top-0 z-50 bg-opacity-40 backdrop-blur-xl px-5 py-4 shadow-lg align-middle'>
+      <div className='w-full grid place-items-center'>
+        <div className="inline-flex rounded-md shadow-sm">
+          <Link href="/" aria-current="page" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
             Anasayfa
           </Link>
-          <Link href='/create-policy' className='px-2'>
+          <Link href="/create-policy" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
             Poliçe Oluştur
           </Link>
-          <Link href='/about' className='px-2'>
+          <Link href="/about" className="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-md hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
             Hakkımızda
           </Link>
-          {/* {!myUser && (
+        </div>
+        {/* User Section */}
+        {/* {!myUser && (
             <Link
               href='/login'
               className='py-2 pr-6 rounded-full text-blue-700'
@@ -65,9 +53,8 @@ const Navbar: React.FC<UserMenuProps> = ({ myUser }) => {
               <UserMenu currentUser={myUser} closeUserMenu={closeUserMenu} />
             </div>
           )} */}
-        </div>
       </div>
-    </div>
+    </div >
   );
 };
 export default Navbar;

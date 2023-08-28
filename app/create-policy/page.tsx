@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { Policy } from "../constants/policies";
-import PolicyInput from "../(components)/inputs/PolicyInput";
 import { InputTypesForInputBoxes } from "../constants/inputTypes";
 import Button, { ButtonTypes } from "../(components)/buttons/Button";
 import PhoneInput from "react-phone-input-2";
@@ -19,6 +18,8 @@ import NumberSelect from "../(components)/inputs/SelectNumberInput";
 import TCKNInput from "../(components)/inputs/TCKNInput";
 import TextInput from "../(components)/inputs/TextInput";
 import YearSelect from "../(components)/inputs/YearSelect";
+import WarningCard from "../(components)/cards/WarningCard";
+import { BsCheckLg } from "react-icons/bs";
 
 interface PolicyOption {
   label: string;
@@ -91,16 +92,6 @@ const InsuranceForm = () => {
             />
           </div>
         );
-      case "height":
-        return (
-          <div className="mb-6">
-            <MeasurementInput
-              label="Boy"
-              unit="cm"
-              onChange={(newValue: string) => createObjectArrayFromValues(newValue, label)}
-            />
-          </div>
-        );
       case "registrationNumber":
         return (
           <div className="mb-6">
@@ -109,12 +100,15 @@ const InsuranceForm = () => {
             />
           </div>
         );
+      case "height":
       case "weight":
         return (
           <div className="mb-6">
-            <MeasurementInput label="Kilo" unit="kg" onChange={
-              (newValue: string) => createObjectArrayFromValues(newValue, label)
-            } />
+            <MeasurementInput
+              label={inputType === "height" ? "Boy" : "Kilo"}
+              unit={inputType === "height" ? "cm" : "kg"}
+              onChange={(newValue: string) => createObjectArrayFromValues(newValue, label)}
+            />
           </div>
         );
       case "number":
@@ -309,14 +303,19 @@ const InsuranceForm = () => {
           ))}
         </select>
         {!selectedPolicy && (
-          <div className="bg-slate-300 my-2 rounded-[10px]">
-            <div className="text-center text-cyan-800 text-xl py-6">
-              Lütfen uygun tercihleri yapınız. Örneğin aracınıza kasko yaptırmak istediğiniz bir senaryo için:
-              <br />
-              Araç Sigortasını seçip devamında "Kasko" seçeneğini seçmeniz gerekmektedir.
-            </div>
+          <div>
+            <WarningCard
+              title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
+              description="Örneğin 'Araç Sigortası' veya 'Seyahat Sigortası'"
+              iconColor="red"
+              icon={() => <div className="text-red-500">
+                <BsCheckLg size={36} />
+              </div>
+              }
+            />
           </div>
         )}
+
       </div>
       {selectedPolicy && (
         <div className="mb-4">
@@ -335,6 +334,20 @@ const InsuranceForm = () => {
           </select>
         </div>
       )}
+      {selectedPolicy && !selectedOption && (
+        <div>
+          <WarningCard
+            title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
+            description={`
+            Örneğin ${selectedPolicy.label} için ${selectedPolicy.values[0]} ${selectedPolicy.values.length > 1 ? "veya " + selectedPolicy.values[1] : ""} ${selectedPolicy.values.length > 1 ? "seçeneklerinden birini" : "seçeneğini"} seçiniz.`}
+            iconColor="red"
+            icon={() => <div className="text-red-500">
+              <BsCheckLg size={36} />
+            </div>
+            }
+          />
+        </div>
+      )}
       {selectedOption && selectedPolicy && (
         <div>
           {selectedOption !== "" && selectedPolicy.requirements.length > 0 && (
@@ -351,30 +364,37 @@ const InsuranceForm = () => {
             >
               <Form>
                 {selectedPolicy.requirements.map((requirement) => (
-                  <div key={requirement} className="mb-6">
-                    <label className="block mb-2">{requirement}</label>
+                  <div key={requirement} className="mb-6 text-black">
+                    <label className="block mb-2">{requirement}:</label>
                     {getInputComponent(InputTypesForInputBoxes[requirement], requirement)}
                   </div>
                 ))}
               </Form>
             </Formik>
           )}
-          <Button
-            text={"Form Gönder"}
-            onClick={() => {
-              console.log(formData)
-            }}
-            buttonType={ButtonTypes.Secondary}
-            isDisabled={false} />
-          <Button
-            text={"Formu Temizle"}
-            onClick={() => {
-              setFormArray([])
-              setFormData([])
-            }}
-            buttonType={ButtonTypes.Secondary}
-            isDisabled={false}
-          />
+          <hr className="my-4" />
+          <div className="flex">
+            <Button
+              text={"Form Gönder"}
+              onClick={() => {
+                console.log(formData)
+              }}
+              buttonType={ButtonTypes.Primary}
+              isDisabled={false}
+            />
+            <div className="m-2" />
+            <Button
+              text={"Formu Temizle"}
+              onClick={() => {
+                setFormArray([])
+                setFormData([])
+                setSelectedPolicy(null)
+                window.scrollTo(0, 0)
+              }}
+              buttonType={ButtonTypes.Secondary}
+              isDisabled={false}
+            />
+          </div>
         </div>
       )}
     </div>

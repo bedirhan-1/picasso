@@ -44,7 +44,7 @@ const Footer = () => (
     </div>
 
     <div className='flex justify-between items-center flex-wrap mt-2 border-t  sm:px-16 px-6 py-2 pb-6'>
-      <p>@2023 MKSigorta. Tğm hakları saklıdır</p>
+      <p>@2023 MKSigorta. Tüm hakları saklıdır</p>
       <div className='flex-1 flex sm:justify-end justify-center max-sm:mt-2 gap-10'>
         <Link href='/' className='text-gray-500'>
           Privacy & Policy
