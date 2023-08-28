@@ -3,7 +3,6 @@ import { InputTypesForInputBoxes } from "../../constants/inputTypes";
 import PlateInput from "./PlateInput";
 import TCKNInput from "./TCKNInput";
 import MeasurementInput from "./MeasurementInput";
-import SelectNumberInput from "./SelectNumberInput";
 import PassportInput from "./PassportInput";
 import DateInput from "./DateInput";
 import CountrySelect from "./CountrySelect";
@@ -15,6 +14,7 @@ import { useState } from "react";
 import NumberSelect from "./SelectNumberInput";
 import RegistrationNumberInput from "./RegistrationNumberInput";
 import NumberInput from "./NumberInput";
+import { Form, Formik } from "formik";
 
 interface formType {
     label: string,
@@ -52,9 +52,11 @@ const PolicyInput = ({ inputType, label, setPhoneNumber, setForm }: PolicyOption
             case "tc":
                 return (
                     <div className=" mb-6">
-                        <TCKNInput
-                            onChange={(newValue: string) => createObjectArrayFromValues(newValue, label)}
-                        />
+                        <Form className="flex items-center justify-between">
+                            <TCKNInput
+                                onChange={(newValue: string) => createObjectArrayFromValues(newValue, label)}
+                            />
+                        </Form>
                     </div>
                 );
             case "multiselectfamily":
@@ -282,9 +284,17 @@ const PolicyInput = ({ inputType, label, setPhoneNumber, setForm }: PolicyOption
     return (
         <div className="">
             <label className="block mb-2 text-sm font-bold text-gray-700">
-                {label} :
+                {label}:
             </label>
-            {getInputComponent()}
+            <Formik
+                initialValues={{
+                    [label]: "",
+                }}
+                onSubmit={() => {
+                    console.log("submit");
+                }}>
+                {getInputComponent()}
+            </Formik>
         </div>
     );
 };
