@@ -97,13 +97,13 @@ export const BusinessInsurance = {
 // Hayat Sigortası
 export const LifeInsurance = {
   title: "Hayat Sigortası",
-  options: ["Kredi Hayat Sigortası"],
+  options: ["Kredi Hayat Sigortası", "Genel Hayat Sigortası"],
   requirements: [
     "TC",
     "Doğum Tarihi",
     "Telefon Numarası",
     "Faiz Oranı (%)",
-    "Kredi Tutarı",
+    "Kredi Tutarı (₺)",
     "Kredi Vadesi",
   ],
 };

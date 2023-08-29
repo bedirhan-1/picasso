@@ -43,7 +43,7 @@ export const InputTypesForInputBoxes: Record<string, string> = {
   "İşyerinin bulunduğu bina içindeki emtia/demirbaş sigorta bedeli": "number",
   "Bina içindeki makine ve tesisat sigorta bedeli": "number",
   "Faiz Oranı (%)": "percentage",
-  "Kredi Tutarı": "number",
+  "Kredi Tutarı (₺)": "number",
   "Kredi Vadesi": "number",
   "Meslek Grubu": "selectJob",
   "Çalıştığı Kurum": "text",

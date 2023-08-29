@@ -53,12 +53,7 @@ const InsuranceForm = () => {
     return policyRequirements
   }
 
-  const createRandomInsuranceDescription = () => {
-    const random = Math.floor(Math.random() * 3);
-    return `Örneğin ${Policy[random].label} için ${Policy[random].values[0]} ${Policy[random].values.length > 1 ? "veya " + Policy[random].values[1] : ""
-      } ${Policy[random].values.length > 1 ? "seçeneklerinden birini" : "seçeneğini"
-      } seçiniz.`;
-  };
+
 
   const thisPolicyRequirements: { [key: string]: any } = getPolicyRequirements(selectedPolicy as PolicyOption);
 
@@ -95,17 +90,6 @@ const InsuranceForm = () => {
       alert(JSON.stringify(values, null, 2));
     },
   });
-
-  const createObjectArrayFromValues = (value: any, title: string) => {
-    const index = formArray.findIndex((item: { label: string; }) => item.label === title);
-    if (index !== -1) {
-      formArray[index].value = value;
-    } else {
-      formArray.push({ label: title, value: value });
-    }
-    setFormData(formArray)
-  }
-
 
   const getInputComponent = (inputType: string, label: string) => {
     switch (inputType) {
@@ -358,7 +342,7 @@ const InsuranceForm = () => {
             <div>
               <WarningCard
                 title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
-                description={createRandomInsuranceDescription()}
+                description="Örneğin Kasko için Kasko veya Araç Sigortası seçeneğini, ardından kasko seçeneğini seçmeniz gerekiyor."
                 iconColor="red"
                 icon={() => <div className="text-red-500">
                   <BsCheckLg size={36} />
@@ -385,74 +369,70 @@ const InsuranceForm = () => {
             </select>
           </div>
         )}
-        {
-          selectedPolicy && !selectedOption && (
-            <div>
-              <WarningCard
-                title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
-                description={`
-            Örneğin ${selectedPolicy.label} 
-            için ${selectedPolicy.values[0]} ${selectedPolicy.values.length > 1 ? "veya " + selectedPolicy.values[1] : ""} 
-            ${selectedPolicy.values.length > 1 ? "seçeneklerinden birini" : "seçeneğini"} seçiniz.`}
-                iconColor="red"
-                icon={() => <div className="text-red-500">
+        {selectedPolicy && !selectedOption && (
+          <div key="warning" id="warning-div">
+            <WarningCard
+              title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
+              description={`${selectedPolicy.label} için ${selectedPolicy.values[0]} veya ${selectedPolicy.values[1]} seçeneğini, ardından ${selectedPolicy.label} seçeneğini seçmeniz gerekiyor.`}
+              iconColor="red"
+              icon={() => (
+                <div className="text-red-500">
                   <BsCheckLg size={36} />
                 </div>
-                }
-              />
-            </div>
-          )
-        }
-        {
-          selectedOption && selectedPolicy && (
-            <>
-              {selectedOption !== "" && selectedPolicy.requirements.length > 0 && (
-                <Formik
-                  initialValues={{
-                    ...selectedPolicy.requirements.reduce(
-                      (acc, requirement) => ({ ...acc, [requirement]: "" }),
-                      {}
-                    ),
-                  }}
-                  onSubmit={(values) => {
-                    console.log(values);
-                  }}
-                  validationSchema={formSchema}
-                >
-                  <form onSubmit={formik.handleSubmit}>
-                    {selectedPolicy.requirements.map((requirement) => (
-                      <div key={requirement} className="mb-6 text-black">
-                        <label className="block mb-2">{requirement}:</label>
-                        {getInputComponent(InputTypesForInputBoxes[requirement], requirement)}
-                      </div>
-                    ))}
-                    <Button
-                      text={"Form Gönder"}
-                      buttonType={ButtonTypes.Primary}
-                      isDisabled={!formik.isValid}
-                      onClick={() => {
-                        console.log(formik.values)
-                      }}
-                      type="submit"
-                    />
-                  </form>
-                </Formik>
               )}
-              <Button
-                text={"Formu doldurmak istemiyorum beni arayın"}
-                buttonType={ButtonTypes.Tertiary}
-                isDisabled={false}
-                onClick={() => {
-                  console.log(formik.values)
-                  // setFormArray([])
-                  // setFormData([])
-                  // setSelectedPolicy(null)
-                  // window.scrollTo(0, 0)
+            />
+          </div>
+        )}
+
+        {selectedOption && selectedPolicy && (
+          <>
+            {selectedOption !== "" && selectedPolicy.requirements.length > 0 && (
+              <Formik
+                initialValues={{
+                  ...selectedPolicy.requirements.reduce(
+                    (acc, requirement) => ({ ...acc, [requirement]: "" }),
+                    {}
+                  ),
                 }}
-                className="mt-4 underline text-blue-500"
-              />
-            </>
-          )
+                onSubmit={(values) => {
+                  console.log(values);
+                }}
+                validationSchema={formSchema}
+              >
+                <form onSubmit={formik.handleSubmit}>
+                  {selectedPolicy.requirements.map((requirement) => (
+                    <div key={requirement} className="mb-6 text-black">
+                      <label className="block mb-2">{requirement}:</label>
+                      {getInputComponent(InputTypesForInputBoxes[requirement], requirement)}
+                    </div>
+                  ))}
+                  <Button
+                    text={"Form Gönder"}
+                    buttonType={ButtonTypes.Primary}
+                    isDisabled={!formik.isValid}
+                    onClick={() => {
+                      console.log(formik.values)
+                    }}
+                    type="submit"
+                  />
+                </form>
+              </Formik>
+            )}
+            <Button
+              text={"Formu doldurmak istemiyorum beni arayın"}
+              buttonType={ButtonTypes.Tertiary}
+              isDisabled={false}
+              onClick={() => {
+                console.log(formik.values)
+                // setFormArray([])
+                // setFormData([])
+                // setSelectedPolicy(null)
+                // window.scrollTo(0, 0)
+              }}
+              className="mt-4 underline text-blue-500"
+            />
+          </>
+        )
         }
       </div>
       <div className="w-[50%] p-8">
