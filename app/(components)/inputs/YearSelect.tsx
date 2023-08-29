@@ -17,7 +17,7 @@ const YearSelect: React.FC<YearSelectProps> = ({ onChange }) => {
             onChange={handleYearChange}
             className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         >
-            <option value={undefined}>Seçiniz</option>
+            <option value={undefined}>Seçiniz...</option>
             {years.map((year) => (
                 <option key={year} value={year}>
                     {year}

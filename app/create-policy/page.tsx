@@ -461,9 +461,9 @@ const InsuranceForm = () => {
           </div>
           <div className="fixed top-50 right-10 p-4 w-[48%] shadow-md bg-blue-500 text-white">
             {formik.values && Object.keys(formik.values).map((key, index) => (
-              <div key={index} className="flex justify-between">
+              <div key={index} className="flex justify-between border-b m-2">
                 <div className="">{key}</div>
-                <div className="">{formik.values[key]}</div>
+                <div className="max-w-[60%]">{formik.values[key]}</div>
               </div>
             ))}
           </div>
