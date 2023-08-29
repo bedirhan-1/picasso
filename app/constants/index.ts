@@ -19,6 +19,14 @@ const User = [
   },
 ];
 
+const leftTop = "top-[5%] left-[5%]";
+const leftMiddle = "top-[50%] left-[5%]";
+const leftBottom = "bottom-[5%] left-[5%]";
+const rightTop = "top-[5%] right-[5%]";
+const rightMiddle = "top-[50%] right-[5%]";
+const rightBottom = "bottom-[5%] right-[5%]";
+const centerTop = "top-[5%] left-[50%]";
+
 const slider: ISlider = {
   Image: [
     {
@@ -26,7 +34,7 @@ const slider: ISlider = {
       alt: "slider-1",
       title: "Sigorta Poliçeleri",
       description: "Geniş kapsamlı sigorta poliçelerimizle güvende olun.",
-      location: "align-middle top-[20%] left-[10%]",
+      location: centerTop,
       bgColor: "backdrop-blur-lg",
       textColor: "text-[#000000]",
     },
@@ -35,7 +43,7 @@ const slider: ISlider = {
       alt: "slider 2",
       title: "Hasar Yönetimi",
       description: "Profesyonel hasar yönetimi hizmetlerimizle yanınızdayız.",
-      location: "top-[20%] left-[10%]",
+      location: leftBottom,
       bgColor: "backdrop-blur-lg",
       textColor: "text-[#FFFFFF]",
     },
@@ -44,7 +52,7 @@ const slider: ISlider = {
       alt: "slider 3",
       title: "Sağlık Sigortası",
       description: "Sağlık sigortası ile sağlığınızı güvence altına alın.",
-      location: "top-[20%] left-[10%]",
+      location: rightBottom,
       bgColor: "backdrop-blur-lg",
       textColor: "text-[#FFF]",
     },
@@ -53,7 +61,7 @@ const slider: ISlider = {
       alt: "slider 4",
       title: "Araç Sigortası",
       description: "Araç sigortası ile sürüş deneyiminizi koruyun.",
-      location: "bottom-[15%] right-[15%]",
+      location: leftTop,
       bgColor: "backdrop-blur-lg",
       textColor: "text-[#FFFFFF]",
     },
@@ -62,7 +70,7 @@ const slider: ISlider = {
       alt: "slider 5",
       title: "Yangın Sigortası",
       description: "Yangın sigortasıyla eviniz ve işletmeniz güvende.",
-      location: "top-[20%] left-[15%]",
+      location: rightTop,
       bgColor: "backdrop-blur-lg",
       textColor: "text-[#FFFFFF]",
     },
@@ -71,7 +79,7 @@ const slider: ISlider = {
       alt: "slider 6",
       title: "Seyahat Sigortası",
       description: "Seyahat sigortası ile rahat bir seyahat deneyimi yaşayın.",
-      location: "bottom-[10%] right-[15%]",
+      location: rightMiddle,
       bgColor: "backdrop-blur-lg",
       textColor: "text-[#000000]",
     },
@@ -80,7 +88,7 @@ const slider: ISlider = {
       alt: "slider 7",
       title: "İş Yeri Sigortası",
       description: "İş yeri sigortasıyla işinizi riske atmayın.",
-      location: "top-[5%] right-[15%]",
+      location: leftTop,
       bgColor: "backdrop-blur-lg",
       textColor: "text-[#FFF]",
     },

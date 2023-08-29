@@ -1,4 +1,7 @@
 "use client";
+
+import { Policy } from "../constants/policies";
+
 interface Country {
   name: string;
   code: string;

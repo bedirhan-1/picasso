@@ -1,5 +1,4 @@
 import React from 'react';
-import { BsArrowUp, BsArrowUpShort } from 'react-icons/bs';
 
 interface NumberSelectProps {
     onChange: (newNumber: number) => void;
@@ -23,6 +22,7 @@ const NumberSelect: React.FC<NumberSelectProps> = ({ onChange }) => {
                 onChange={handleNumberChange}
                 className="shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             >
+                <option value={undefined}>Seçiniz</option>
                 {options}
             </select>
         </div>
