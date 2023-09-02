@@ -2,11 +2,12 @@
 
 import WarningCard from "../(components)/cards/WarningCard";
 import { BsCheckLg } from "react-icons/bs";
-import React, { useState } from "react";
-import { Formik, useFormik } from "formik";
+import React, { useEffect, useState } from "react";
+import { ErrorMessage, Formik, useFormik } from "formik";
 import * as Yup from "yup";
 import { Policy } from "../constants/policies";
 import { InputTypesForInputBoxes } from "../constants/inputTypes";
+import { toast } from "react-toastify";
 import {
   Button,
   CountrySelect,
@@ -37,6 +38,7 @@ interface formType {
 }
 
 const InsuranceForm = () => {
+  const [isValidTC, setIsValidTC] = useState<boolean>(false);
   const [selectedPolicy, setSelectedPolicy] = useState<PolicyOption | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
@@ -59,8 +61,28 @@ const InsuranceForm = () => {
         ...acc,
         [requirement]: Yup.string().required(`${requirement} zorunludur.`),
       };
-    }, {})
+    }, {
+      "Poliçe Türü": Yup.string().required("Poliçe türü zorunludur.")
+    })
   );
+
+  const getWhichInputIsFailed = () => {
+    const failedInput = Object.keys(formik.errors).find((key) => formik.errors[key] !== "" || formik.errors[key] !== undefined);
+    return failedInput;
+  };
+
+  const handleSubmit = () => {
+    if (!isValidTC || !formik.isValid)
+      return toast.error(`Lütfen ${getWhichInputIsFailed()} alanını doğru bir şekilde doldurunuz.`)
+    else {
+      const formArray: formType[] = []
+      Object.keys(formik.values).map((key) => {
+        formArray.push({ label: key, value: formik.values[key] })
+      })
+      console.log(formArray)
+      toast.success("Form başarıyla gönderildi.")
+    }
+  }
 
   const handlePolicyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const policyLabel = event.target.value;
@@ -68,8 +90,6 @@ const InsuranceForm = () => {
     if (policy) {
       setSelectedPolicy(policy);
       setSelectedOption(null);
-
-      // Seçilen poliçe türüne göre zorunlu alanları ayarla
       getPolicyRequirements(policy)
     } else {
       setSelectedPolicy(null);
@@ -84,7 +104,18 @@ const InsuranceForm = () => {
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
     },
+    initialErrors:
+      Object.keys(thisPolicyRequirements).reduce((acc, requirement) => {
+        return {
+          ...acc,
+          [requirement]: `${requirement} zorunludur.`,
+        };
+      }, {
+        "Poliçe Türü": "Poliçe türü zorunludur."
+      }),
+    validationSchema: formSchema,
   });
+
 
   const getInputComponent = (inputType: string, label: string) => {
     switch (inputType) {
@@ -92,6 +123,7 @@ const InsuranceForm = () => {
         return (
           <div className=" mb-6">
             <TCKNInput
+              setIsValidTC={setIsValidTC}
               onChange={(newValue: string) => formik.setFieldValue(label, newValue)}
             />
           </div>
@@ -205,7 +237,7 @@ const InsuranceForm = () => {
         return (
           <div className="mb-6">
             <MultiOptionSelect
-              options={["Eş", "Çocuk", "Anne", "Baba", "Diğer"]}
+              options={["Kendisi", "Eş", "Çocuk", "Anne", "Baba", "Diğer"]}
               onSelect={(selectedOption: string) => formik.setFieldValue(label, selectedOption)}
             />
           </div>
@@ -371,7 +403,7 @@ const InsuranceForm = () => {
           <div key="warning" id="warning-div">
             <WarningCard
               title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
-              description={`${selectedPolicy.label} için ${selectedPolicy.values[0]} veya ${selectedPolicy.values[1]} seçeneğini, ardından ${selectedPolicy.label} seçeneğini seçmeniz gerekiyor.`}
+              description={`${selectedPolicy.label} için dilerseniz ${selectedPolicy.values[0]} veya ${selectedPolicy.values[1]} seçeneğini seçebilirsiniz.`}
               iconColor="red"
               icon={() => (
                 <div className="text-red-500">
@@ -392,6 +424,7 @@ const InsuranceForm = () => {
                     {}
                   ),
                 }}
+                initialErrors={formik.errors}
                 onSubmit={(values) => {
                   console.log(values);
                 }}
@@ -407,9 +440,9 @@ const InsuranceForm = () => {
                   <Button
                     text={"Form Gönder"}
                     buttonType={ButtonTypes.Primary}
-                    isDisabled={!formik.isValid}
+                    isDisabled={false}
                     onClick={() => {
-                      console.log(formik.values)
+                      handleSubmit()
                     }}
                     type="submit"
                   />
@@ -421,7 +454,7 @@ const InsuranceForm = () => {
               buttonType={ButtonTypes.Tertiary}
               isDisabled={false}
               onClick={() => {
-                alert("Bu özellik henüz geliştirilmedi.")
+                toast.warning("Bu özellik şu an için aktif değildir. Lütfen Formu doldurarak devam etmeyi deneyiniz.");
                 // setFormArray([])
                 // setFormData([])
                 // setSelectedPolicy(null)
@@ -432,18 +465,18 @@ const InsuranceForm = () => {
           </>
         )}
       </div>
-      <div className="w-[50%] p-8">
-        <div className="min-h-screen flex ">
-          <div className="flex-grow p-4">
-          </div>
-          <div className="fixed top-50 right-10 p-4 w-[48%] shadow-md bg-blue-500 text-white">
-            {formik.values && Object.keys(formik.values).map((key, index) => (
-              <div key={index} className="flex justify-between border-b m-2">
-                <div className="">{key}</div>
-                <div className="max-w-[60%]">{formik.values[key]}</div>
-              </div>
-            ))}
-          </div>
+      {/* Right side */}
+      <div className="fixed top-50 right-10 w-[48%] shadow-md bg-white mt-10 rounded-3xl pb-4">
+        <h1 className="text-2xl font-semibold bg-blue-500 p-4 text-white inline-block mb-4">5 dakika içinde poliçe oluşturabilirsiniz.</h1>
+        <div className=" px-4">
+          <p className="mb-4">Poliçe oluşturmak için aşağıdaki adımları takip edin.</p>
+          <ol className="list-decimal list-inside">
+            <li className="mb-2">Yaptırmak istediğiniz poliçe türünü seçin</li>
+            <li className="mb-2">Formu doldururken yanlışlıkla bir alanı boş bıraktıysanız, formu göndermeden önce uyarı alacaksınız.</li>
+            <li className="mb-2">Formu gönderdikten sonra, poliçeniz hazırlanıyor. Bu işlem 5 dakika kadar sürebilir.</li>
+            <li className="mb-2">Poliçeniz hazır olduğunda, size bir e-posta gönderilecek. E-postada poliçenizi görüntüleyebileceğiniz bir bağlantı olacak.</li>
+            <li className="mb-2">Poliçenizi görüntüledikten sonra, poliçenizi indirebilir veya yazdırabilirsiniz.</li>
+          </ol>
         </div>
       </div>
     </div>

@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 
 interface TCKNInputProps {
     onChange: (selectedOption: string) => void;
+    setIsValidTC: (isValid: boolean) => void;
 }
 
-const TCKNInput: React.FC<TCKNInputProps> = ({ onChange }) => {
+const TCKNInput: React.FC<TCKNInputProps> = ({ onChange, setIsValidTC }) => {
     const [tckn, setTCKN] = useState('');
     const [isValid, setIsValid] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
@@ -15,15 +16,19 @@ const TCKNInput: React.FC<TCKNInputProps> = ({ onChange }) => {
         if (tcknRegex.test(tcknNumber)) {
             if (isValidTCKN(tcknNumber)) {
                 setIsValid(true);
+                setIsValidTC(true);
                 setErrorMessage('');
             } else {
                 setIsValid(false);
+                setIsValidTC(false);
                 setErrorMessage('Geçersiz TC');
             }
-        } else {
+        } else if (tcknNumber.length > 11 || tcknNumber.length < 11) {
             setIsValid(false);
+            setIsValidTC(false);
             setErrorMessage('Geçersiz TC formatı');
         }
+
     };
 
     const isValidTCKN = (tcknNumber: string) => {
@@ -55,7 +60,7 @@ const TCKNInput: React.FC<TCKNInputProps> = ({ onChange }) => {
                 onChange={handleTCKNChange}
                 placeholder="Örnek: 12345678901"
             />
-            {tckn.length === 11 && !isValid && <div className="text-red-500 text-xs mt-1">{errorMessage}</div>}
+            {tckn.length >= 11 && <div className={`${isValid ? "text-green-700" : "text-red-500"} font-semibold text-xs mt-1`}>{errorMessage}</div>}
         </div>
     );
 };

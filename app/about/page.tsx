@@ -60,7 +60,7 @@ const About = () => {
           </p>
         </div>
       </section>
-      <footer className="bg-blue-500 text-white text-center py-4 px-3 right-0 top-[12%] fixed z-50">
+      <footer className="bg-blue-500 text-white text-center py-4 px-3 right-0 bottom-[30%] fixed z-50">
         <p>&copy; 2023 MKSigorta</p>
       </footer>
     </div>
