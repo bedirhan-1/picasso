@@ -20,13 +20,13 @@ export const InputTypesForInputBoxes: Record<string, string> = {
   "DASK Sigortası Yaptırılmış mı?": "multiselectyn",
   "Konut Türü (Apartman / Müstakil Ev / Villa / Dubleks / Tripleks)":
     "multiselectHomeType",
-  "Konutun Brüt Metrekare Bilgisi": "selectNumber",
+  "Konutun Brüt Metrekare Bilgisi": "number",
   "Binanın Yapı Tipi (Betonarme / Ahşap / Çelik)": "multiSelectBuildingType",
   "Konutun Boş Kalma Süresi (Ay)": "selectNumber",
   "Konutun Kullanım Amacı (Mesken / İşyeri / İkametgah / Depo)":
     "multiSelectHomeUsage",
-  "Konutun Sigorta Bedeli": "selectNumber",
-  "Konutun İçindeki Eşyaların Sigorta Bedeli": "selectNumber",
+  "Konutun Sigorta Bedeli": "number",
+  "Konutun İçindeki Eşyaların Sigorta Bedeli": "number",
   "Seyahat Başlangıç Tarihi": "date",
   "Seyahat Bitiş Tarihi": "date",
   "Seyahat Edilecek Ülke": "countrySelect",

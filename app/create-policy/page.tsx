@@ -37,8 +37,6 @@ interface formType {
 }
 
 const InsuranceForm = () => {
-  const [formArray, setFormArray] = useState<Array<formType>>([]);
-  const [formData, setFormData] = useState<{ label: string, value: any }[]>();
   const [selectedPolicy, setSelectedPolicy] = useState<PolicyOption | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
@@ -53,8 +51,6 @@ const InsuranceForm = () => {
     return policyRequirements
   }
 
-
-
   const thisPolicyRequirements: { [key: string]: any } = getPolicyRequirements(selectedPolicy as PolicyOption);
 
   const formSchema = Yup.object().shape(
@@ -65,7 +61,6 @@ const InsuranceForm = () => {
       };
     }, {})
   );
-
 
   const handlePolicyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const policyLabel = event.target.value;
@@ -323,13 +318,13 @@ const InsuranceForm = () => {
   return (
     <div className="flex">
       <div className="p-8 w-[50%]" >
-        <h1 className="text-2xl font-semibold bg-blue-500 p-4 text-white inline-block">Poliçe Formu Oluştur</h1>
+        <h1 className="text-2xl font-semibold bg-blue-500 p-4 text-white inline-block mb-4">Poliçe Formu Oluştur</h1>
         <div className="">
           <label className="block mb-2">Yaptırmak istediğiniz sigorta türünü seçiniz:</label>
           <select
             onChange={handlePolicyChange}
             value={selectedPolicy?.label || ""}
-            className="border rounded p-2 "
+            className="border rounded p-2 mb-4"
           >
             <option value="">Seçiniz...</option>
             {Policy.map((policy) => (
@@ -344,10 +339,13 @@ const InsuranceForm = () => {
                 title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
                 description="Örneğin Kasko için Kasko veya Araç Sigortası seçeneğini, ardından kasko seçeneğini seçmeniz gerekiyor."
                 iconColor="red"
-                icon={() => <div className="text-red-500">
-                  <BsCheckLg size={36} />
-                </div>
-                }
+                icon={() => {
+                  return (
+                    <div className="text-red-500">
+                      <BsCheckLg size={36} />
+                    </div>
+                  )
+                }}
               />
             </div>
           )}
@@ -423,7 +421,7 @@ const InsuranceForm = () => {
               buttonType={ButtonTypes.Tertiary}
               isDisabled={false}
               onClick={() => {
-                console.log(formik.values)
+                alert("Bu özellik henüz geliştirilmedi.")
                 // setFormArray([])
                 // setFormData([])
                 // setSelectedPolicy(null)
@@ -432,8 +430,7 @@ const InsuranceForm = () => {
               className="mt-4 underline text-blue-500"
             />
           </>
-        )
-        }
+        )}
       </div>
       <div className="w-[50%] p-8">
         <div className="min-h-screen flex ">
@@ -452,6 +449,5 @@ const InsuranceForm = () => {
     </div>
   );
 };
-
 
 export default InsuranceForm;

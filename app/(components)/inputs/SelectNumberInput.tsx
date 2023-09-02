@@ -9,7 +9,6 @@ const NumberSelect: React.FC<NumberSelectProps> = ({ onChange }) => {
         const newNumber = parseInt(event.target.value);
         onChange(newNumber);
     };
-
     const options = Array.from({ length: 100 }, (_, index) => (
         <option key={index + 1} value={index + 1}>
             {index + 1}
