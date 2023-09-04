@@ -13,13 +13,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang='en'>
+      <head>
+        <title>MKSigorta</title>
+      </head>
       <body className={inter.className} style={{
         backgroundImage: "linear-gradient(to top, #475569 20%, #f0f9ff 80%)",
       }}>
         <Chakra>
           <Navbar />
           <div className='min-h-[750px]'>
-
             {children}
           </div>
           <Footer />

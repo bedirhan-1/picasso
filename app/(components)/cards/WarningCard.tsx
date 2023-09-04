@@ -8,6 +8,7 @@ interface WarningCardProps {
     className?: string;
 }
 
+
 const WarningCard: React.FC<WarningCardProps> = ({ title, description, icon, iconColor, className }) => {
     return (
         <div className={`flex flex-col items-center justify-center w-full py-10 bg-white rounded-xl shadow-md border border-gray-100 my-5 ${icon ? "p-4" : null} ${className ?? ""}`}>

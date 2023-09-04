@@ -57,7 +57,7 @@ export default function SliderMain({ content }: CarouselProps) {
               <img
                 src={image.src}
                 alt={image.alt}
-                className='h-[800px] object-cover'
+                className='h-[40rem] object-cover rounded-3xl'
               />
               {currentImage && <BasicCard {...basicCardProps} />}
             </div>

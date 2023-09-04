@@ -42,8 +42,8 @@ export default function page() {
     router.push("/");
   }
   return (
-    <form onSubmit={onSubmit} className='text-center'>
-      <div className='flex flex-col justify-center h-[450px] w-[350px] mx-auto gap-2'>
+    <form onSubmit={onSubmit} className='text-center mt-10'>
+      <div className='flex flex-col justify-center w-[350px] mx-auto gap-2'>
         <Input
           placeholder='Email'
           id='email'
