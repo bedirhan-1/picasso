@@ -9,11 +9,11 @@ const Footer = () => (
     <div className='flex max-md:flex-col flex-wrap justify-between gap-5 sm:px-16 px-6 py-10'>
       <div className='flex flex-col justify-start items-start gap-6'>
         <Image
-          src='/logo.png'
+          src='/blue-logo.png'
           alt='logo'
-          width={118}
-          height={118}
-          className='object-contain'
+          width={150}
+          height={150}
+          className='object-contain rounded-md'
         />
         <p className='text-base text-gray-300'>
           MKsigorta 2023 <br />

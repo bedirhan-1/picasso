@@ -1,4 +1,5 @@
 "use client";
+import Introduction from "./(components)/Introduction";
 import SliderMain from "./(components)/SliderMain";
 import { slider } from "./constants";
 
@@ -16,6 +17,7 @@ export default async function Home() {
   return (
     <main className='w-full'>
       <SliderMain content={slidenPics} />
+      <Introduction />
     </main>
   );
 }

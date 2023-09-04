@@ -352,7 +352,7 @@ const InsuranceForm = () => {
       <div className="p-8 w-[50%]" >
         <h1 className="text-2xl font-semibold bg-blue-500 p-4 text-white inline-block mb-4">Poliçe Formu Oluştur</h1>
         <div className="">
-          <label className="block mb-2">Yaptırmak istediğiniz sigorta türünü seçiniz:</label>
+          <label className="block mb-2">Yaptırmak istediğiniz sigorta türünü seçiniz.</label>
           <select
             onChange={handlePolicyChange}
             value={selectedPolicy?.label || ""}

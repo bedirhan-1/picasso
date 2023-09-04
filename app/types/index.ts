@@ -3,6 +3,7 @@ export type ISlider = {
 };
 
 export type IImage = {
+  width?: any;
   src: string;
   alt: string;
   title: string;
@@ -10,4 +11,5 @@ export type IImage = {
   location: string;
   bgColor: string;
   textColor?: string;
+  index: number;
 };
