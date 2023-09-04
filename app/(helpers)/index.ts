@@ -24,3 +24,5 @@ export async function fetchCountries(): Promise<Country[]> {
     throw error;
   }
 }
+
+export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;

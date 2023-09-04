@@ -413,7 +413,6 @@ const InsuranceForm = () => {
             />
           </div>
         )}
-
         {selectedOption && selectedPolicy && (
           <>
             {selectedOption !== "" && selectedPolicy.requirements.length > 0 && (

@@ -1,68 +1,145 @@
 "use client";
-import { useState } from "react";
+
+import React, { useState, ChangeEvent } from "react";
+
+import { emailRegex } from "../(helpers)";
+import { Button, Container, FormControl, FormLabel, Input, Heading, FormErrorMessage } from "@chakra-ui/react";
+
+interface Values {
+  name: string;
+  email: string;
+  message: string;
+}
+
+const initialValues: Values = {
+  name: "",
+  email: "",
+  message: "",
+};
+
+interface State {
+  values: Values;
+  isLoading?: boolean;
+}
+
+const initialState: State = { values: initialValues };
 
 const Contact: React.FC = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [state, setState] = useState<State>(initialState);
+  const [touched, setTouched] = useState<Values>(initialValues);
+  const { values, isLoading } = state;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // İletişim formunun gönderim işlemleri burada gerçekleştirilebilir
-    console.log("Form submitted:", { name, email, message });
-    // ... İşlemlerin devamı
+  const onBlur = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    const { name } = event.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
   };
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    const { name, value } = event.target;
+    setState((prev) => ({
+      values: {
+        ...prev.values,
+        [name]: value,
+      },
+    }));
+  };
+
+  const onSubmit = async () => {
+    setState((prev) => ({
+      ...prev,
+      isLoading: true,
+    }));
+  };
+
+
   return (
-    <div className='container flex-1 mx-auto py-8'>
-      <h1 className='text-2xl font-bold mb-4'>İletişim</h1>
-      <form onSubmit={handleSubmit} className='max-w-lg'>
-        <div className='mb-4'>
-          <label htmlFor='name' className='block font-medium mb-1'>
-            Adınız
-          </label>
-          <input
-            id='name'
-            type='text'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className='w-full p-2 border border-gray-300 rounded'
-            required
-          />
-        </div>
-        <div className='mb-4'>
-          <label htmlFor='email' className='block font-medium mb-1'>
-            E-posta Adresiniz
-          </label>
-          <input
-            id='email'
-            type='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className='w-full p-2 border border-gray-300 rounded'
-            required
-          />
-        </div>
-        <div className='mb-4'>
-          <label htmlFor='message' className='block font-medium mb-1'>
-            Mesajınız
-          </label>
-          <textarea
-            id='message'
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            className='w-full p-2 border border-gray-300 rounded'
-            required
-          ></textarea>
-        </div>
-        <button
-          type='submit'
-          className='bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded'
-        >
-          Gönder
-        </button>
-      </form>
-    </div>
+    <Container
+      maxW="xl"
+      centerContent style={
+        {
+          width: "100%",
+          padding: "2rem",
+          marginTop: "2rem",
+          backgroundColor: "#fff",
+        }
+
+      }>
+      <Heading as="h1" size="xl" my={10}>
+        İletişim
+      </Heading>
+      <FormControl isInvalid={touched.name && !values.name || false} isRequired>
+        <FormLabel htmlFor="name">İsim</FormLabel>
+        <Input
+          border={
+            touched.name && !values.name
+              ? "2px solid #e53e3e"
+              : "2px solid #cbd5e0"
+          }
+          id="name"
+          name="name"
+          type="text"
+          value={values.name}
+          onChange={handleChange}
+          onBlur={onBlur}
+        />
+        <FormErrorMessage  >İsim alanı boş bırakılamaz</FormErrorMessage>
+      </FormControl >
+      <FormControl isInvalid={touched.email && !values.email || false} isRequired>
+        <FormLabel htmlFor="email" marginTop={5}>Email</FormLabel>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          value={values.email}
+          onChange={handleChange}
+          onBlur={onBlur}
+          border={
+            touched.name && !values.name
+              ? "2px solid #e53e3e"
+              : "2px solid #cbd5e0"
+          }
+        />
+        <FormErrorMessage  >Email alanı boş bırakılamaz</FormErrorMessage>
+      </FormControl>
+      <FormControl isInvalid={touched.message && !values.message || false} isRequired>
+        <FormLabel htmlFor="message" marginTop={5}>Mesajınızı giriniz</FormLabel>
+        <Input
+          id="message"
+          name="message"
+          type="textarea"
+          value={values.message}
+          onChange={handleChange}
+          onBlur={onBlur}
+          border={
+            touched.name && !values.name
+              ? "2px solid #e53e3e"
+              : "2px solid #cbd5e0"
+          }
+        />
+        <FormErrorMessage>Mesaj alanı boş bırakılamaz</FormErrorMessage>
+      </FormControl>
+      <Button
+        style={{
+          marginTop: "2rem",
+          marginBottom: "2rem",
+          width: "100%",
+          height: "3rem",
+          backgroundColor: "#3b82f6",
+          color: "#fff",
+          borderRadius: "0.375rem",
+          fontSize: "1rem",
+          fontWeight: 600,
+          transition: "all 0.15s ease",
+
+        }}
+        type="submit"
+        isDisabled={!(values.name && values.email && values.message)}
+        onClick={onSubmit}
+        isLoading={isLoading}
+      >
+        Gönder
+      </Button>
+    </Container >
   );
 };
 

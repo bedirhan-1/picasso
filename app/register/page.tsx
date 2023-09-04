@@ -5,6 +5,7 @@ import Input from "../(components)/inputs/input";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { FaGoogle } from "react-icons/fa";
 
 interface InitialStateProps {
   name: string;
@@ -97,6 +98,14 @@ export default function page() {
           <Link href='/login' className='text-blue-700 underline'>
             Giriş Yap
           </Link>
+          {/* Google register */}
+          <button
+
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center"
+          >
+            <FaGoogle className="mr-2" />
+            Google ile Giriş Yap
+          </button>
         </div>
       </div>
     </form>
