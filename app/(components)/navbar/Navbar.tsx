@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@chakra-ui/react";
 
 
 const Navbar = () => {
   return (
     <div className='sticky top-0 z-50 bg-opacity-40 backdrop-blur-xl px-5 py-4 shadow-lg align-middle'>
       <div className='w-full grid place-items-center'>
-        <div className="inline-flex rounded-md">
+        <div className=" rounded-md flex items-center">
           <Image
             src="/MKLogo-WDescription.png"
             alt="MKSigorta Logo"
@@ -29,7 +30,14 @@ const Navbar = () => {
           <Link href={"/login"}
             className="justify-end flex-1"
           >
-            Sign In
+            <Button
+              colorScheme="blue"
+              variant="ghost"
+              size="sm"
+              className="ml-10"
+            >
+              Giriş Yap
+            </Button>
           </Link>
         </div>
 
