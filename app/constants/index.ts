@@ -2,20 +2,12 @@ import { ISlider } from "../types";
 
 const User = [
   {
-    name: "Profilim",
-    link: "/user",
-  },
-  {
     name: "Poliçe Oluştur",
     link: "/create-policy",
   },
   {
     name: "Poliçelerim",
     link: "/my-policies",
-  },
-  {
-    name: "İletişim",
-    link: "/contact",
   },
 ];
 

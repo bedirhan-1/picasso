@@ -9,7 +9,7 @@ export interface ISliderType {
   title: string;
 }
 
-export default async function Home() {
+export default function Home() {
   const slidenPics = slider.Image.map((image) => {
     return image;
   });

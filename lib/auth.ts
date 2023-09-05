@@ -19,9 +19,9 @@ export const authConfig: NextAuthOptions = {
       name: "Sign in",
       credentials: {
         email: { label: "Email", type: "text", placeholder: "ornek@ornek.com" },
-        password: { label: "Password", type: "password" },
+        password: { type: "password" },
       },
-      async authorize(credentials) {
+      authorize: async (credentials) => {
         if (!credentials || !credentials.password || !credentials.email) {
           return null;
         }
@@ -34,10 +34,13 @@ export const authConfig: NextAuthOptions = {
           const { hashedPassword, createdAt, id, ...dbUserWithoutPassword } =
             dbUser;
 
-          return dbUserWithoutPassword;
+          return Promise.resolve({
+            id: id,
+            ...dbUserWithoutPassword,
+          });
         }
 
-        return null;
+        return Promise.resolve(null);
       },
     }),
     GoogleProvider({

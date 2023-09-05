@@ -5,11 +5,13 @@ import Footer from "./(components)/footer/Footer";
 import { ToastContainer } from "./nextToast";
 import "react-toastify/dist/ReactToastify.css";
 import Chakra from "./Chackra";
+import myUser from "./actions/getUser";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 
+  const myCurrentUser = await myUser();
 
   return (
     <html lang='en'>
@@ -20,7 +22,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         backgroundImage: "linear-gradient(to top, #475569 20%, #f0f9ff 80%)",
       }}>
         <Chakra>
-          <Navbar />
+          <Navbar myUser={myCurrentUser} />
           <div className='min-h-[750px]'>
             {children}
           </div>

@@ -61,11 +61,12 @@ export default function SliderMain({ content }: CarouselProps) {
         >
           {content.map((image, index) => (
             <SwiperSlide key={index}>
-              <div className="">
+              <div className="bg-blue-100">
                 <img
                   src={image.src}
                   alt={image.alt}
-                  className='h-[40rem] object-cover mt-10'
+                  width={image.width}
+                  className="object-cover w-full h-[600px]"
                 />
                 {currentImage && <BasicCard {...basicCardProps} />}
               </div>

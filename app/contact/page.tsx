@@ -44,7 +44,7 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     setState((prev) => ({
       ...prev,
       isLoading: true,
