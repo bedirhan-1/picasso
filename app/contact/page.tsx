@@ -106,15 +106,10 @@ const Contact: React.FC = () => {
         <Input
           id="message"
           name="message"
-          type="textarea"
+          type="text"
           value={values.message}
           onChange={handleChange}
           onBlur={onBlur}
-          border={
-            touched.name && !values.name
-              ? "2px solid #e53e3e"
-              : "2px solid #cbd5e0"
-          }
         />
         <FormErrorMessage>Mesaj alanı boş bırakılamaz</FormErrorMessage>
       </FormControl>

@@ -1,12 +1,10 @@
 "use client";
 
 import React, { ChangeEvent, FormEvent, useState } from "react";
-import Input from "../(components)/inputs/input";
+import { Button, Input } from "@chakra-ui/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { FaGoogle } from "react-icons/fa";
-import { signIn } from "next-auth/react";
 
 interface InitialStateProps {
   name: string;
@@ -25,6 +23,7 @@ const initialState: InitialStateProps = {
 export default function page() {
   const [state, setState] = useState(initialState);
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setState({ ...state, [event.target.name]: event.target.value });
@@ -49,8 +48,8 @@ export default function page() {
   }
 
   return (
-    <form onSubmit={onSubmit} className='text-center mt-10'>
-      <div className='flex flex-col justify-center w-[350px] mx-auto gap-2'>
+    <form onSubmit={onSubmit} className='text-center'>
+      <div className='flex flex-col justify-center h-[450px] w-[350px] mx-auto gap-2'>
         <>
           <Input
             placeholder='Name'
@@ -85,30 +84,23 @@ export default function page() {
             value={state.password}
           />
         </>
-        <button
+        <Button
+          variant={"solid"}
           type='submit'
           className='bg-green-700 align-middle justify-center items-center p-4 rounded-md text-white'
         >
           Kayıt ol
-        </button>
+        </Button>
+      </div>
+
+      <div>
         <div>
           Zaten hesabınız var mı?{" "}
           <Link href='/login' className='text-blue-700 underline'>
             Giriş Yap
           </Link>
-          {/* Google register */}
-          <button
-            onClick={() => {
-              signIn("google");
-            }}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg flex text-center w-full justify-center items-center mt-10"
-          >
-            <FaGoogle className="mr-5" />
-            Google ile Giriş Yap
-          </button>
         </div>
       </div>
-
-    </form >
+    </form>
   );
 }
