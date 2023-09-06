@@ -195,7 +195,7 @@ const Login: React.FC = () => {
         </Button>
         <div className="text-center mt-5 w-full font-normal text-gray-500">
           <Text>Zaten hesabınız var mı?</Text>
-          <ChakraLink href="/login" color="blue.500">
+          <ChakraLink href="/register" color="blue.500">
             <Text>tıklayınız</Text>
           </ChakraLink>
         </div>
