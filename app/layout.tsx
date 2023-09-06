@@ -10,7 +10,6 @@ import myUser from "./actions/getUser";
 const inter = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-
   const myCurrentUser = await myUser();
 
   return (
@@ -19,10 +18,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <title>MKSigorta</title>
       </head>
       <body className={inter.className} style={{
-        backgroundImage: "linear-gradient(to top, #475569 20%, #f0f9ff 80%)",
+        backgroundImage: "linear-gradient(to top, #475569 20%, #fff 80%)",
       }}>
         <Chakra>
-          <Navbar myUser={myCurrentUser} />
+          <Navbar myUser={myCurrentUser || null} />
           <div className='min-h-[750px]'>
             {children}
           </div>

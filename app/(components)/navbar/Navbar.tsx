@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { SafeUser } from "@/app/types";
 import UserMenu from "./UserMenu";
 import { useState } from "react";
 
 interface UserMenuProps {
-  myUser: SafeUser | null;
+  myUser: any;
 }
 
 const Navbar: React.FC<UserMenuProps> = ({ myUser }) => {

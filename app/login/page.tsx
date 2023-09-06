@@ -59,23 +59,25 @@ const Login: React.FC = () => {
     }));
   };
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     setState((prev) => ({
       ...prev,
       isLoading: true,
     }));
 
-    const signInResponse = await signIn("credentials", {
+    signIn("credentials", {
       redirect: false,
       email: values.email,
       password: values.password,
+    }).then((signInResponse) => {
+      if (signInResponse && !signInResponse.error) {
+        router.push("/");
+      } else {
+        setError("Parola veya email yanlış! Lütfen tekrar deneyiniz.");
+      }
+    }).catch((error) => {
+      setError("Bir hata oluştu. Lütfen tekrar deneyiniz.");
     });
-
-    if (signInResponse && !signInResponse.error) {
-      router.push("/");
-    } else {
-      setError("Parola veya email yanlış! Lütfen tekrar deneyiniz.");
-    }
   };
 
   return (
