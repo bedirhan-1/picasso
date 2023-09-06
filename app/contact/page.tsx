@@ -4,6 +4,7 @@ import React, { useState, ChangeEvent } from "react";
 
 import { emailRegex } from "../(helpers)";
 import { Button, Container, FormControl, FormLabel, Input, Heading, FormErrorMessage } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 
 interface Values {
   name: string;
@@ -51,6 +52,8 @@ const Contact: React.FC = () => {
     }));
   };
 
+  const session = useSession();
+  console.log(session)
 
   return (
     <Container

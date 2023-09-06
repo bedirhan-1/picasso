@@ -31,7 +31,7 @@ const initialState: InitialStateProps = {
   password: "",
 };
 
-export default function Register() {
+const Register = () => {
   const [state, setState] = useState(initialState);
   const [show, setShow] = useState(false);
   const [touched, setTouched] = useState<InitialStateProps>({
@@ -89,9 +89,11 @@ export default function Register() {
           <Button
             width="100%"
             height="3rem"
-            color="#fff"
-            backgroundColor="#DB4437"
+            color="#000"
+            backgroundColor={"#EFEFEF"}
+            variant={"outline"}
             onClick={() => signIn("google")}
+            _hover={{ backgroundColor: "black", color: "white" }}
           >
             <div className="flex justify-start items-center space-x-5">
               <BsGoogle size={24} className="mr-5" />
@@ -99,20 +101,33 @@ export default function Register() {
             </div>
           </Button>
           <Button
-            style={{
-              width: "100%",
-              height: "3rem",
-              color: "#fff",
-              backgroundColor: "#3b82f6",
-            }}
+            width="100%"
+            height="3rem"
+            color="#000"
+            backgroundColor={"#EFEFEF"}
+            variant={"outline"}
             onClick={() => signIn("google")}
+            _hover={{ backgroundColor: "black", color: "white" }}
           >
             <div className="flex justify-start items-center space-x-5 text-center">
               <BsFacebook size={24} className="mr-5" />
-              Facebook ile kayıt ol
+              Facebook ile Kayıt ol
             </div>
           </Button>
         </div>
+        <Heading
+          as="h1"
+          size="lg"
+          color="#fff"
+          style={{
+            fontWeight: "bold",
+            marginTop: "2rem",
+            marginBottom: "2rem",
+            textAlign: "center",
+          }}
+        >
+          Veya
+        </Heading>
         <FormControl isInvalid={touched.name && !state.name || false} isRequired>
           <Input
             id="name"
@@ -146,7 +161,6 @@ export default function Register() {
             style={{
               fontWeight: "bold",
               letterSpacing: "0.08rem",
-              marginTop: "1rem",
               height: "3.3rem",
               borderRadius: "0.375rem",
             }}
@@ -167,7 +181,6 @@ export default function Register() {
             style={{
               fontWeight: "bold",
               letterSpacing: "0.08rem",
-              marginTop: "1rem",
               height: "3.3rem",
               borderRadius: "0.375rem",
             }}
@@ -179,7 +192,6 @@ export default function Register() {
         <FormControl isInvalid={touched.password && !state.password || false} isRequired>
           <InputGroup>
             <Input
-              pr="4.5rem"
               type={show ? "text" : "password"}
               placeholder="Şifre"
               id="password"
@@ -197,7 +209,7 @@ export default function Register() {
               }}
             />
             <InputRightElement width="4.25rem">
-              <Button h="2.5rem" size="md" marginTop="0.75rem" onClick={() => setShow(!show)}>
+              <Button size="md" marginTop={"1rem"} onClick={() => setShow(!show)}>
                 {show ? <BsEyeSlash size={24} /> : <BsEye size={24} />}
               </Button>
             </InputRightElement>
@@ -231,3 +243,5 @@ export default function Register() {
     </Container>
   );
 }
+
+export default Register;

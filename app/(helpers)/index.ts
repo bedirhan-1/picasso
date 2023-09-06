@@ -22,3 +22,7 @@ export async function fetchCountries(): Promise<Country[]> {
 }
 
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+export const makeNameStringCorrect = (e: string) => {
+  return e.at(0)?.toUpperCase() + e.slice(1).toLowerCase();
+};

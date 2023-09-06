@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { Button } from "@chakra-ui/react";
+import { json } from "stream/consumers";
 
 interface UserMenuProps {
     currentUser: SafeUser | null;
@@ -16,14 +17,17 @@ const UserMenu = ({ currentUser, closeUserMenu }: UserMenuProps) => {
     return (
         <div className='flex flex-col  bg-white shadow-lg right-0 rounded-lg px-4 py-2 gap-6'>
             <div className='flex items-center gap-4'>
-                <div
-                    className='w-[50px] h-[50px] rounded-full bg-black flex items-center justify-center text-white cursor-pointer'
-                    onClick={() => router.push("/user")}
-                >
-                    <span>{currentUser?.name?.at(0)?.toUpperCase()}</span>
-                    <span>{currentUser?.surname?.at(0)?.toUpperCase()}</span>
-                </div>
-
+                <Link href={{
+                    pathname: '/user',
+                    query: { id: JSON.stringify(currentUser?.id) }
+                }}>
+                    <div
+                        className='w-[50px] h-[50px] rounded-full bg-black flex items-center justify-center text-white cursor-pointer'
+                    >
+                        <span>{currentUser?.name?.at(0)?.toUpperCase()}</span>
+                        <span>{currentUser?.surname?.at(0)?.toUpperCase()}</span>
+                    </div>
+                </Link>
                 <div className='flex flex-col'>
                     <span>
                         {currentUser?.name?.toLowerCase() +
@@ -44,13 +48,15 @@ const UserMenu = ({ currentUser, closeUserMenu }: UserMenuProps) => {
 
             <Button
                 variant={"outline"}
-                onClick={() => signOut()}
+                onClick={() => {
+                    signOut();
+                }}
                 className='w-full'
             >
                 Çıkış Yap
             </Button>
 
-        </div>
+        </div >
     );
 }
 

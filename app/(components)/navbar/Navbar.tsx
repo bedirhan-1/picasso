@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import UserMenu from "./UserMenu";
 import { useState } from "react";
+import { Button, Link as ChakraLink } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 
 interface UserMenuProps {
   myUser: any;
@@ -11,10 +13,14 @@ interface UserMenuProps {
 
 const Navbar: React.FC<UserMenuProps> = ({ myUser }) => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-
+  const session = useSession();
   const closeUserMenu = () => {
     setUserMenuOpen(false);
   };
+
+  if (session.status === "authenticated") {
+    myUser = session.data?.user
+  }
 
   return (
     <div className='sticky top-0 z-50 bg-opacity-40 backdrop-blur-xl px-5 py-4 shadow-xl'>
@@ -33,25 +39,24 @@ const Navbar: React.FC<UserMenuProps> = ({ myUser }) => {
           <Link href={"/contact"} className=' font-medium text-sm text-center text-gray-900 px-10 py-2 bg-white border border-gray-200 rounded-r-lg hover:bg-blue-100 cursor-pointer'>İletişim</Link>
         </div>
         {!myUser && (
-          <>
-            <div>
-              <Link
-                href='/login'
-                className='py-2 px-6 border-black border-[1px] rounded-full'
-              >
-                Login
-              </Link>
-            </div>
-          </>
+          <ChakraLink
+            href='/auth'
+            className='font-semibold text-center text-blue-500 px-10 py-2 text-sm  bg-white border border-gray-200 rounded-lg hover:bg-blue-100 cursor-pointer'
+            style={{
+              textDecoration: 'none',
+            }}
+          >
+            Giriş yap
+          </ChakraLink>
         )}
 
         {myUser && (
           <div
-            className='w-[40px] h-[40px] rounded-full bg-black flex items-center justify-center text-white cursor-pointer'
             onClick={() => setUserMenuOpen((prev) => !prev)}
           >
-            <span>{myUser.name?.at(0)?.toUpperCase()}</span>
-            <span>{myUser.surname?.at(0)?.toUpperCase()}</span>
+            <Button>
+              {myUser.name?.at(0)?.toUpperCase() + myUser.name?.slice(1).toLowerCase()}
+            </Button>
           </div>
         )}
 
@@ -61,7 +66,7 @@ const Navbar: React.FC<UserMenuProps> = ({ myUser }) => {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 };
 
