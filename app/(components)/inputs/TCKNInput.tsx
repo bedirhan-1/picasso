@@ -10,44 +10,79 @@ const TCKNInput: React.FC<TCKNInputProps> = ({ onChange, setIsValidTC }) => {
     const [isValid, setIsValid] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
 
-    const validateTCKN = (tcknNumber: string) => {
-        const tcknRegex = /^[0-9]{11}$/;
+    function TCNOKontrol(TCNO: string) {
+        const hatali = ['11111111110', '22222222220', '33333333330', '44444444440', '55555555550', '66666666660', '7777777770', '88888888880', '99999999990'];
 
-        if (tcknRegex.test(tcknNumber)) {
-            if (isValidTCKN(tcknNumber)) {
-                setIsValid(true);
-                setIsValidTC(true);
-                setErrorMessage('');
-            } else {
-                setIsValid(false);
-                setIsValidTC(false);
-                setErrorMessage('Geçersiz TC');
-            }
-        } else if (tcknNumber.length > 11 || tcknNumber.length < 11) {
+        if (TCNO.length !== 11) {
             setIsValid(false);
             setIsValidTC(false);
-            setErrorMessage('Geçersiz TC formatı');
+            setErrorMessage('TC Kimlik Numarası 11 haneli olmalıdır.');
+            return false;
+        }
+        if (isNaN(Number(TCNO))) {
+            setIsValid(false);
+            setIsValidTC(false);
+            setErrorMessage('TC Kimlik Numarası sadece rakamlardan oluşmalıdır.');
+            return false;
+        }
+        if (TCNO[0] === '0') {
+            setIsValid(false);
+            setIsValidTC(false);
+            setErrorMessage('TC Kimlik Numarası 0 ile başlayamaz.');
+            return false;
         }
 
-    };
+        let tek = 0;
+        let cift = 0;
 
-    const isValidTCKN = (tcknNumber: string) => {
-        const lastDigit = parseInt(tcknNumber[10], 10);
-        const digits = tcknNumber.split('').map((digit) => parseInt(digit, 10));
+        for (let i = 0; i < 9; i++) {
+            const digit = Number(TCNO[i]);
+            if (i % 2 === 0) {
+                tek += digit;
+            } else {
+                cift += digit;
+            }
+        }
 
-        const sum = digits.slice(0, 10).reduce((acc, digit, index) => {
-            return acc + digit * (index % 2 === 0 ? 1 : 2);
-        }, 0);
+        tek *= 7;
+        const sonuc = Math.abs(tek - cift);
 
-        const controlDigit = (sum % 10 === 0 ? 0 : 10 - (sum % 10)) % 10;
+        if (sonuc % 10 !== Number(TCNO[9])) {
+            setIsValid(false);
+            setIsValidTC(false);
+            setErrorMessage('Geçersiz TC Kimlik Numarası');
+            return false;
+        }
 
-        return lastDigit === controlDigit;
-    };
+        let TCToplam = 0;
+        for (let i = 0; i < 10; i++) {
+            TCToplam += Number(TCNO[i]);
+        }
+
+        if (TCToplam % 10 !== Number(TCNO[10])) {
+            setIsValid(false);
+            setIsValidTC(false);
+            setErrorMessage('Geçersiz TC Kimlik Numarası');
+            return false;
+        }
+
+        if (hatali.includes(TCNO)) {
+            setIsValid(false);
+            setIsValidTC(false);
+            setErrorMessage('Geçersiz TC Kimlik Numarası');
+            return false;
+        }
+
+        setIsValid(true);
+        setIsValidTC(true);
+        setErrorMessage('');
+        return true;
+    }
 
     const handleTCKNChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newTCKN = event.target.value;
         setTCKN(newTCKN);
-        validateTCKN(newTCKN);
+        TCNOKontrol(newTCKN);
         onChange(newTCKN);
     };
 
