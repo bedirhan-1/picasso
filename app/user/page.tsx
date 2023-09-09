@@ -1,21 +1,16 @@
 import { makeNameStringCorrect } from "../(helpers)";
 import myUser from "../actions/getUser";
-import { SafeUser } from "../types";
 
-interface Props {
-    myUser: SafeUser | null;
-}
-
-const User: React.FC<Props> = async () => {
+const User = async () => {
     const myCurrentUser = await myUser()
-
+    const name = myCurrentUser?.name?.split(" ")[0]
 
     return (
         <>
             {myCurrentUser ? (
                 <div className="h-screen">
                     <h1 className=" text-slate-700 font-semibold text-center mt-10">
-                        Merhaba {makeNameStringCorrect(myCurrentUser.name ?? "") + " " + makeNameStringCorrect(myCurrentUser.surname ?? "")}
+                        Merhaba {makeNameStringCorrect(name || "")}
                     </h1>
                 </div>
             ) : (
@@ -23,7 +18,6 @@ const User: React.FC<Props> = async () => {
                     Profilinizi görüntülemek, poliçe isteği oluşturmak ve oluşturulmuş poliçelerinizi görüntüleyebilmek için lütfen giriş yapınız.
                 </div>
             )}
-
         </>
     );
 }

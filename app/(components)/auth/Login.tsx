@@ -6,15 +6,13 @@ import {
     Container,
     FormControl,
     Input,
-    Heading,
     FormErrorMessage,
     InputRightElement,
     InputGroup,
     Text,
     Link as ChakraLink,
-    Link,
 } from "@chakra-ui/react";
-import { BsEyeSlash, BsEye, BsGoogle, BsFacebook, BsGithub } from "react-icons/bs";
+import { BsEyeSlash, BsEye, BsGoogle, BsFacebook } from "react-icons/bs";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -43,8 +41,6 @@ const Login: React.FC = () => {
     const { values, isLoading } = state;
     const router = useRouter();
 
-    const handleClick = () => setShow(!show);
-
     const onBlur = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         const { name } = event.target;
         setTouched((prev) => ({ ...prev, [name]: true }));
@@ -65,7 +61,6 @@ const Login: React.FC = () => {
             ...prev,
             isLoading: true,
         }));
-
         signIn("credentials", {
             redirect: false,
             email: values.email,
@@ -82,19 +77,19 @@ const Login: React.FC = () => {
     };
 
     return (
-        <Container maxW="md" marginTop={10} centerContent
+        <Container maxW="md" marginTop={10}
             style={{
-                height: "100%",
                 alignItems: "center",
                 justifyContent: "center",
+                backdropFilter: "blur(10px)",
                 background: "linear-gradient(#64748b, #0f172a)",
                 borderRadius: "1rem",
                 padding: "2rem",
             }}
+            className="shadow-2xl"
         >
             <div className="space-y-4">
                 <Button
-                    disabled={isLoading}
                     width="100%"
                     height="3rem"
                     color="#000"
@@ -104,23 +99,34 @@ const Login: React.FC = () => {
                     _hover={{ backgroundColor: "black", color: "white" }}
                 >
                     <div className="flex justify-start items-center space-x-5">
-                        <BsGoogle size={24} className="mr-5" />
+                        <img
+                            src="/google.png"
+                            alt="google"
+                            width={30}
+                            height={30}
+                            className="mr-5"
+                        />
                         Google ile giriş yap
                     </div>
                 </Button>
                 <Button
-                    disabled={isLoading}
                     width="100%"
                     height="3rem"
                     color="#000"
                     backgroundColor={"#EFEFEF"}
                     variant={"outline"}
-                    onClick={() => signIn("github")}
+                    onClick={() => signIn("google")}
                     _hover={{ backgroundColor: "black", color: "white" }}
                 >
                     <div className="flex justify-start items-center space-x-5 text-center">
-                        <BsGithub size={24} className="mr-5" />
-                        Github ile giriş yap
+                        <img
+                            src="/facebook.png"
+                            alt="facebook"
+                            width={30}
+                            height={30}
+                            className="mr-5"
+                        />
+                        Facebook ile giriş yap
                     </div>
                 </Button>
             </div>
@@ -182,7 +188,7 @@ const Login: React.FC = () => {
                             }}
                         />
                         <InputRightElement width="4.25rem">
-                            <Button h="2.5rem" size="md" marginTop="0.75rem" onClick={handleClick}>
+                            <Button h="2.5rem" size="md" marginTop="0.75rem" onClick={() => setShow(!show)}>
                                 {show ? <BsEyeSlash size={24} /> : <BsEye size={24} />}
                             </Button>
                         </InputRightElement>
@@ -206,12 +212,6 @@ const Login: React.FC = () => {
                 >
                     Giriş Yap
                 </Button>
-                <div className="text-center mt-5 w-full font-normal text-gray-500">
-                    <Text>Hesabınız yok mu?</Text>
-                    <ChakraLink href="/register" color="blue.500">
-                        <Text>tıklayınız</Text>
-                    </ChakraLink>
-                </div>
             </div>
         </Container>
     );

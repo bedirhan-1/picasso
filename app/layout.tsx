@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <title>MKSigorta</title>
       </head>
-      <body className={inter.className} style={{ backgroundImage: "linear-gradient(to top, #475569 20%, #fff 80%)" }}>
+      <body className={inter.className}>
         <AuthProvider>
           <Chakra>
             <Navbar myUser={myCurrentUser || null} />

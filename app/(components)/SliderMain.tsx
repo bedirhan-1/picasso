@@ -86,9 +86,8 @@ export default function SliderMain({ content }: CarouselProps) {
         {content.map((_, index) => (
           <div
             key={index}
-            className={`rounded-full transition-all duration-600 w-4 h-2 bg-gray-400 ${current === index && "bg-gray-600"
-              }`}
-          ></div>
+            className={`rounded-full transition-all duration-600 w-4 h-2 ${current === index ? "bg-blue-500" : "bg-blue-100 "}`}
+          />
         ))}
       </div>
     </div>

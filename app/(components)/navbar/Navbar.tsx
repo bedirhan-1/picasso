@@ -5,25 +5,21 @@ import Image from "next/image";
 import UserMenu from "./UserMenu";
 import { useState } from "react";
 import { Button, Link as ChakraLink } from "@chakra-ui/react";
-import { useSession } from "next-auth/react";
-
+import { signOut, useSession } from "next-auth/react";
 interface UserMenuProps {
   myUser: any;
 }
 
 const Navbar: React.FC<UserMenuProps> = ({ myUser }) => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const session = useSession();
   const closeUserMenu = () => {
     setUserMenuOpen(false);
   };
 
-  if (session.status === "authenticated") {
-    myUser = session.data?.user
-  }
+  const { status } = useSession();
 
   return (
-    <div className='sticky top-0 z-50 bg-opacity-40 backdrop-blur-xl px-5 py-4 shadow-xl'>
+    <div className='sticky top-0 z-50 bg-white px-5 py-4 shadow-xl border-b-2 border-blue-500'>
       <div className="w-full flex items-center justify-evenly">
         <Image
           src="/MKLogo-WDescription.png"
@@ -59,7 +55,6 @@ const Navbar: React.FC<UserMenuProps> = ({ myUser }) => {
             </Button>
           </div>
         )}
-
         {userMenuOpen && (
           <div className='absolute bottom-0 top-20 right-20'>
             <UserMenu currentUser={myUser} closeUserMenu={closeUserMenu} />
