@@ -1,8 +1,21 @@
+"use client";
+
+import { Container, Heading } from "@chakra-ui/react";
+
 const MyPolicies = () => {
   return (
-    <div>
-      <h1>My Policies</h1>
-    </div>
+
+    <Container
+      maxW="container.xl"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      marginTop={10}
+    >
+      <Heading>Poliçelerim</Heading>
+    </Container>
+
   );
 };
 

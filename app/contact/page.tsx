@@ -4,6 +4,7 @@ import React, { useState, ChangeEvent } from "react";
 
 import { emailRegex } from "../(helpers)";
 import { Button, Container, FormControl, FormLabel, Input, Heading, FormErrorMessage } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 
 interface Values {
   name: string;
@@ -44,13 +45,15 @@ const Contact: React.FC = () => {
     }));
   };
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     setState((prev) => ({
       ...prev,
       isLoading: true,
     }));
   };
 
+  const session = useSession();
+  console.log(session)
 
   return (
     <Container
@@ -106,15 +109,10 @@ const Contact: React.FC = () => {
         <Input
           id="message"
           name="message"
-          type="textarea"
+          type="text"
           value={values.message}
           onChange={handleChange}
           onBlur={onBlur}
-          border={
-            touched.name && !values.name
-              ? "2px solid #e53e3e"
-              : "2px solid #cbd5e0"
-          }
         />
         <FormErrorMessage>Mesaj alanı boş bırakılamaz</FormErrorMessage>
       </FormControl>

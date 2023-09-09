@@ -1,25 +1,31 @@
+import { type } from "os";
 import { ISlider } from "../types";
 
-const User = [
-  {
-    name: "Profilim",
-    link: "/user",
-  },
+type ILink = {
+  name: string;
+  link: string;
+  icon?: string;
+};
+
+const User: ILink[] = [
   {
     name: "Poliçe Oluştur",
     link: "/create-policy",
+    icon: "fas fa-plus",
   },
   {
     name: "Poliçelerim",
     link: "/my-policies",
+    icon: "fas fa-file-alt",
   },
   {
-    name: "İletişim",
-    link: "/contact",
+    name: "Ayarlar",
+    link: "/my-info",
+    icon: "fas fa-cog",
   },
 ];
 
-const leftTop = "top-[5%] right-[15%]";
+const leftTop = "top-[5%] left-[5%]";
 
 const slider: ISlider = {
   Image: [
@@ -30,7 +36,7 @@ const slider: ISlider = {
       title: "Sigorta Poliçeleri",
       description: "Geniş kapsamlı sigorta poliçelerimizle güvende olun.",
       location: leftTop,
-      bgColor: "backdrop-blur-lg",
+      bgColor: "backdrop-blur-lg bg-reg-400",
       textColor: "text-[#000000]",
     },
     {
