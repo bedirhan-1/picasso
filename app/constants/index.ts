@@ -20,7 +20,7 @@ const User: ILink[] = [
   },
   {
     name: "Ayarlar",
-    link: "/my-info",
+    link: "/settings",
     icon: "fas fa-cog",
   },
 ];

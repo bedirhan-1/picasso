@@ -26,6 +26,9 @@ import {
 } from "../(components)";
 import { ButtonTypes } from "../(components)/buttons/Button";
 import PhoneInput from "react-phone-input-2";
+import { useSession } from "next-auth/react";
+import { Heading, Link } from "@chakra-ui/react";
+
 
 interface PolicyOption {
   label: string;
@@ -41,7 +44,7 @@ const InsuranceForm = () => {
   const [isValidTC, setIsValidTC] = useState<boolean>(false);
   const [selectedPolicy, setSelectedPolicy] = useState<PolicyOption | null>(null);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-
+  const { status } = useSession()
   const policyRequirements: { [key: string]: string } = {}
 
   const getPolicyRequirements = (policy: PolicyOption) => {
@@ -347,139 +350,155 @@ const InsuranceForm = () => {
     formik.setFieldValue("Poliçe Türü", event.target.value)
   };
 
-  return (
-    <div className="flex">
-      <div className="p-8 w-[50%]" >
-        <h1 className="text-2xl font-semibold bg-blue-500 p-4 text-white inline-block mb-4">Poliçe Formu Oluştur</h1>
-        <div className="">
-          <label className="block mb-2">Yaptırmak istediğiniz sigorta türünü seçiniz.</label>
-          <select
-            onChange={handlePolicyChange}
-            value={selectedPolicy?.label || ""}
-            className="border rounded p-2 mb-4"
-          >
-            <option value="">Seçiniz...</option>
-            {Policy.map((policy) => (
-              <option key={policy.label} value={policy.label}>
-                {policy.label}
-              </option>
-            ))}
-          </select>
-          {!selectedPolicy && (
-            <div>
-              <WarningCard
-                title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
-                description="Örneğin Kasko için Kasko veya Araç Sigortası seçeneğini, ardından kasko seçeneğini seçmeniz gerekiyor."
-                iconColor="red"
-                icon={() => {
-                  return (
-                    <div className="text-red-500">
-                      <BsCheckLg size={36} />
-                    </div>
-                  )
-                }}
-              />
-            </div>
-          )}
-        </div>
-        {selectedPolicy && (
-          <div className="mb-4">
-            <label className="block mb-2">Hangi tür {selectedPolicy.label.toLocaleLowerCase()} yaptırmak istiyorsunuz?</label>
+  if (status === "authenticated") {
+    return (
+      <div className="flex">
+        <div className="p-8 w-[50%]" >
+          <h1 className="text-2xl font-semibold bg-blue-500 p-4 text-white inline-block mb-4">Poliçe Formu Oluştur</h1>
+          <div className="">
+            <label className="block mb-2">Yaptırmak istediğiniz sigorta türünü seçiniz.</label>
             <select
-              value={selectedOption || ""}
-              onChange={handleOptionChange}
-              className="border rounded p-2"
+              onChange={handlePolicyChange}
+              value={selectedPolicy?.label || ""}
+              className="border rounded p-2 mb-4"
             >
-              <option value="">Birini seçiniz...</option>
-              {selectedPolicy.values.map((option) => (
-                <option key={option} value={option}>
-                  {option}
+              <option value="">Seçiniz...</option>
+              {Policy.map((policy) => (
+                <option key={policy.label} value={policy.label}>
+                  {policy.label}
                 </option>
               ))}
             </select>
-          </div>
-        )}
-        {selectedPolicy && !selectedOption && (
-          <div key="warning" id="warning-div">
-            <WarningCard
-              title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
-              description={`${selectedPolicy.label} için dilerseniz ${selectedPolicy.values[0]} veya ${selectedPolicy.values[1]} seçeneğini seçebilirsiniz.`}
-              iconColor="red"
-              icon={() => (
-                <div className="text-red-500">
-                  <BsCheckLg size={36} />
-                </div>
-              )}
-            />
-          </div>
-        )}
-        {selectedOption && selectedPolicy && (
-          <>
-            {selectedOption !== "" && selectedPolicy.requirements.length > 0 && (
-              <Formik
-                initialValues={{
-                  ...selectedPolicy.requirements.reduce(
-                    (acc, requirement) => ({ ...acc, [requirement]: "" }),
-                    {}
-                  ),
-                }}
-                initialErrors={formik.errors}
-                onSubmit={(values) => {
-                  console.log(values);
-                }}
-                validationSchema={formSchema}
-              >
-                <form onSubmit={formik.handleSubmit}>
-                  {selectedPolicy.requirements.map((requirement) => (
-                    <div key={requirement} className="mb-6 text-black">
-                      <label className="block mb-2">{requirement}:</label>
-                      {getInputComponent(InputTypesForInputBoxes[requirement], requirement)}
-                    </div>
-                  ))}
-                  <Button
-                    text={"Form Gönder"}
-                    buttonType={ButtonTypes.Primary}
-                    isDisabled={false}
-                    onClick={() => {
-                      handleSubmit()
-                    }}
-                    type="submit"
-                  />
-                </form>
-              </Formik>
+            {!selectedPolicy && (
+              <div>
+                <WarningCard
+                  title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
+                  description="Örneğin Kasko için Kasko veya Araç Sigortası seçeneğini, ardından kasko seçeneğini seçmeniz gerekiyor."
+                  iconColor="red"
+                  icon={() => {
+                    return (
+                      <div className="text-red-500">
+                        <BsCheckLg size={36} />
+                      </div>
+                    )
+                  }}
+                />
+              </div>
             )}
-            <Button
-              text={"Formu doldurmak istemiyorum beni arayın"}
-              buttonType={ButtonTypes.Tertiary}
-              isDisabled={false}
-              onClick={() => {
-                toast.warning("Bu özellik şu an için aktif değildir. Lütfen Formu doldurarak devam etmeyi deneyiniz.");
-                // setFormArray([])
-                // setFormData([])
-                // setSelectedPolicy(null)
-                // window.scrollTo(0, 0)
-              }}
-              className="mt-4 underline text-blue-500"
-            />
-          </>
-        )}
-      </div>
-      {/* Right side */}
-      <div className="fixed top-50 right-10 w-[48%] shadow-md bg-white mt-10 rounded-3xl pb-4">
-        <h1 className="text-2xl font-semibold bg-blue-500 p-4 text-white inline-block mb-4">5 dakika içinde poliçe oluşturabilirsiniz.</h1>
-        <div className=" px-4">
-          <p className="mb-4">Poliçe oluşturmak için aşağıdaki adımları takip edin.</p>
-          <ol className="list-decimal list-inside">
-            <li className="mb-2">Yaptırmak istediğiniz poliçe türünü seçin</li>
-            <li className="mb-2">Formu doldururken yanlışlıkla bir alanı boş bıraktıysanız, formu göndermeden önce uyarı alacaksınız.</li>
-            <li className="mb-2">Formu gönderdikten sonra, poliçeniz hazırlanıyor. Bu işlem 5 dakika kadar sürebilir.</li>
-            <li className="mb-2">Poliçeniz hazır olduğunda, size bir e-posta gönderilecek. E-postada poliçenizi görüntüleyebileceğiniz bir bağlantı olacak.</li>
-            <li className="mb-2">Poliçenizi görüntüledikten sonra, poliçenizi indirebilir veya yazdırabilirsiniz.</li>
-          </ol>
+          </div>
+          {selectedPolicy && (
+            <div className="mb-4">
+              <label className="block mb-2">Hangi tür {selectedPolicy.label.toLocaleLowerCase()} yaptırmak istiyorsunuz?</label>
+              <select
+                value={selectedOption || ""}
+                onChange={handleOptionChange}
+                className="border rounded p-2"
+              >
+                <option value="">Birini seçiniz...</option>
+                {selectedPolicy.values.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {selectedPolicy && !selectedOption && (
+            <div key="warning" id="warning-div">
+              <WarningCard
+                title="Lütfen yaptırmak istediğiniz sigorta türünü seçiniz"
+                description={`${selectedPolicy.label} için dilerseniz ${selectedPolicy.values[0]} veya ${selectedPolicy.values[1]} seçeneğini seçebilirsiniz.`}
+                iconColor="red"
+                icon={() => (
+                  <div className="text-red-500">
+                    <BsCheckLg size={36} />
+                  </div>
+                )}
+              />
+            </div>
+          )}
+          {selectedOption && selectedPolicy && (
+            <>
+              {selectedOption !== "" && selectedPolicy.requirements.length > 0 && (
+                <Formik
+                  initialValues={{
+                    ...selectedPolicy.requirements.reduce(
+                      (acc, requirement) => ({ ...acc, [requirement]: "" }),
+                      {}
+                    ),
+                  }}
+                  initialErrors={formik.errors}
+                  onSubmit={(values) => {
+                    console.log(values);
+                  }}
+                  validationSchema={formSchema}
+                >
+                  <form onSubmit={formik.handleSubmit}>
+                    {selectedPolicy.requirements.map((requirement) => (
+                      <div key={requirement} className="mb-6 text-black">
+                        <label className="block mb-2">{requirement}:</label>
+                        {getInputComponent(InputTypesForInputBoxes[requirement], requirement)}
+                      </div>
+                    ))}
+                    <Button
+                      text={"Form Gönder"}
+                      buttonType={ButtonTypes.Primary}
+                      isDisabled={false}
+                      onClick={() => {
+                        handleSubmit()
+                      }}
+                      type="submit"
+                    />
+                  </form>
+                </Formik>
+              )}
+              <Button
+                text={"Formu doldurmak istemiyorum beni arayın"}
+                buttonType={ButtonTypes.Tertiary}
+                isDisabled={false}
+                onClick={() => {
+                  toast.warning("Bu özellik şu an için aktif değildir. Lütfen Formu doldurarak devam etmeyi deneyiniz.");
+                  // setFormArray([])
+                  // setFormData([])
+                  // setSelectedPolicy(null)
+                  // window.scrollTo(0, 0)
+                }}
+                className="mt-4 underline text-blue-500"
+              />
+            </>
+          )}
+        </div>
+        {/* Right side */}
+        <div className="fixed top-50 right-10 w-[48%] shadow-md bg-white mt-10 rounded-3xl pb-4">
+          <h1 className="text-2xl font-semibold bg-blue-500 p-4 text-white inline-block mb-4">5 dakika içinde poliçe oluşturabilirsiniz.</h1>
+          <div className=" px-4">
+            <p className="mb-4">Poliçe oluşturmak için aşağıdaki adımları takip edin.</p>
+            <ol className="list-decimal list-inside">
+              <li className="mb-2">Yaptırmak istediğiniz poliçe türünü seçin</li>
+              <li className="mb-2">Formu doldururken yanlışlıkla bir alanı boş bıraktıysanız, formu göndermeden önce uyarı alacaksınız.</li>
+              <li className="mb-2">Formu gönderdikten sonra, poliçeniz hazırlanıyor. Bu işlem 5 dakika kadar sürebilir.</li>
+              <li className="mb-2">Poliçeniz hazır olduğunda, size bir e-posta gönderilecek. E-postada poliçenizi görüntüleyebileceğiniz bir bağlantı olacak.</li>
+              <li className="mb-2">Poliçenizi görüntüledikten sonra, poliçenizi indirebilir veya yazdırabilirsiniz.</li>
+            </ol>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
+  if (status === "loading") {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Heading color="blue.500" size="lg">Yükleniyor...</Heading>
+      </div>
+    )
+  }
+  else {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <label>Poliçe oluşturmak için <Link href={"/auth"} color={"blue.600"}>buradan</Link> giriş yapabilirsiniz</label>
+      </div>
+    )
+  }
+}
 
 export default InsuranceForm;

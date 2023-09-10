@@ -10,7 +10,7 @@ import {
   InputRightElement,
   InputGroup,
 } from "@chakra-ui/react";
-import { BsEyeSlash, BsEye, BsGithub } from "react-icons/bs";
+import { BsEyeSlash, BsEye, BsGithub, BsFacebook } from "react-icons/bs";
 import axios from "axios";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";

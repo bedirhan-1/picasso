@@ -12,7 +12,7 @@ import {
     Text,
     Link as ChakraLink,
 } from "@chakra-ui/react";
-import { BsEyeSlash, BsEye, BsGoogle, BsFacebook } from "react-icons/bs";
+import { BsEyeSlash, BsEye, BsGoogle, BsFacebook, BsGithub } from "react-icons/bs";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -115,18 +115,12 @@ const Login: React.FC = () => {
                     color="#000"
                     backgroundColor={"#EFEFEF"}
                     variant={"outline"}
-                    onClick={() => signIn("google")}
+                    onClick={() => signIn("github")}
                     _hover={{ backgroundColor: "black", color: "white" }}
                 >
                     <div className="flex justify-start items-center space-x-5 text-center">
-                        <img
-                            src="/facebook.png"
-                            alt="facebook"
-                            width={30}
-                            height={30}
-                            className="mr-5"
-                        />
-                        Facebook ile giriş yap
+                        <BsGithub size={30} className="mr-5" />
+                        Github ile giriş yap
                     </div>
                 </Button>
             </div>

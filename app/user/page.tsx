@@ -11,7 +11,6 @@ const User = async () => {
                 <div className="h-screen">
                     <h1 className=" text-slate-700 font-semibold text-center mt-10">
                         Merhaba {makeNameStringCorrect(name || "")}
-                        {name?.toLowerCase() === "sevgi" ? "❤️ seni çok seviyorum aşkım benim 🥰" : " 🤗"}
                     </h1>
                 </div>
             ) : (
