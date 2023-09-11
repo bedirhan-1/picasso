@@ -88,7 +88,7 @@ const Login: React.FC = () => {
             }}
             className="shadow-2xl"
         >
-            <div className="space-y-4">
+            <div className="space-y-4 w-full">
                 <Button
                     width="100%"
                     height="3rem"
@@ -107,20 +107,6 @@ const Login: React.FC = () => {
                             className="mr-5"
                         />
                         Google ile giriş yap
-                    </div>
-                </Button>
-                <Button
-                    width="100%"
-                    height="3rem"
-                    color="#000"
-                    backgroundColor={"#EFEFEF"}
-                    variant={"outline"}
-                    onClick={() => signIn("github")}
-                    _hover={{ backgroundColor: "black", color: "white" }}
-                >
-                    <div className="flex justify-start items-center space-x-5 text-center">
-                        <BsGithub size={30} className="mr-5" />
-                        Github ile giriş yap
                     </div>
                 </Button>
             </div>

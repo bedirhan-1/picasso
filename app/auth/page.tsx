@@ -1,6 +1,6 @@
 "use client"
 import { Heading, Switch } from "@chakra-ui/react";
-import Login from "../(components)/auth/Login"
+import Login from "../(components)/auth/Login";
 import Register from "../(components)/auth/Register";
 import { useState } from "react";
 
