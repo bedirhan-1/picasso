@@ -10,7 +10,6 @@ import {
     InputRightElement,
     InputGroup,
     Text,
-    Link as ChakraLink,
 } from "@chakra-ui/react";
 import { BsEyeSlash, BsEye, BsGoogle, BsFacebook, BsGithub } from "react-icons/bs";
 import { signIn } from "next-auth/react";
@@ -38,7 +37,7 @@ const Login: React.FC = () => {
     const [show, setShow] = React.useState(false);
     const [touched, setTouched] = useState<Values>(initialValues);
     const [error, setError] = useState<string | null>(null);
-    const { values, isLoading } = state;
+    const { values } = state;
     const router = useRouter();
 
     const onBlur = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
@@ -72,7 +71,7 @@ const Login: React.FC = () => {
                 setError("Parola veya email yanlış! Lütfen tekrar deneyiniz.");
             }
         }).catch((error) => {
-            setError("Bir hata oluştu. Lütfen tekrar deneyiniz.");
+            setError(error);
         });
     };
 

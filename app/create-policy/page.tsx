@@ -82,7 +82,6 @@ const InsuranceForm = () => {
       Object.keys(formik.values).map((key) => {
         formArray.push({ label: key, value: formik.values[key] })
       })
-      console.log(formArray)
       toast.success("Form başarıyla gönderildi.")
     }
   }

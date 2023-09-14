@@ -2,11 +2,12 @@ import Navbar from "./(components)/navbar/Navbar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Footer from "./(components)/footer/Footer";
-import { ToastContainer } from "./nextToast";
 import "react-toastify/dist/ReactToastify.css";
-import Chakra from "./Chackra";
-import myUser from "./actions/getUser";
-import { AuthProvider } from "./AuthProvider";
+import myUser from "./(actions)/getUser";
+import { AuthProvider, ChakraProvider, StoreProvider } from "./Providers";
+import { ToastContainer } from "./Providers/nextToast";
+
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,16 +25,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <title>MKSigorta</title>
       </head>
       <body className={inter.className}>
-        <AuthProvider>
-          <Chakra>
-            <Navbar myUser={myCurrentUser || null} />
-            <div className='min-h-[750px]'>
-              {children}
-            </div>
-            <Footer />
-            <ToastContainer />
-          </Chakra>
-        </AuthProvider>
+        <StoreProvider>
+          <AuthProvider>
+            <ChakraProvider>
+              <Navbar myUser={myCurrentUser || null} />
+              <div className='min-h-[750px]'>
+                {children}
+              </div>
+              <Footer />
+              <ToastContainer />
+            </ChakraProvider>
+          </AuthProvider>
+        </StoreProvider>
       </body>
     </html>
   );
